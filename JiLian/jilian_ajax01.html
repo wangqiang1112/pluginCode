@@ -1,0 +1,51 @@
+<HTML encoding="UTF-8">
+<head>
+<title>Cascade Drop Down</title>
+<style type="text/css">
+.cascade_drop_down {width:200px;
+</style>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript">
+function changeLac(v) {  
+    jQuery('#lac').val(v); //让第一个下拉框保持显示选中的值  
+    jQuery('#ci').html(""); //把ci内容设为空  
+    var ciValue = jQuery('#ci');  
+    ciValue.append('<option value="">选择CI</option>');  
+      
+    //异步请求查询ci列表的方法并返回json数组  
+    jQuery.ajax({  
+        url : '/demo/useranalyse/useranalyselist/fillplace.action',  
+        type : 'post',  
+        data : { lac : v },  
+        dataType : 'json',  
+        success : function (opts) {  
+            // 单选CI  
+            if (opts && opts.length > 0) {  
+                    var html = [];  
+                    for (var i = 0; i < opts.length; i++) {  
+                        html.push('<option value="'+opts[i].value+'">'+opts[i].text+'</option>');  
+                    }  
+                    ciValue.append(html.join(''));  
+                }  
+            }  
+        });  
+}  
+
+</script>
+</head>
+<body>
+<select id="lac" name="lac" style="width:100px;vertical-align:middle;"  
+                        onchange="changeLac(this.value)">                      
+                        <option value="0">选项</option>                     
+                        <s:iterator value="#request.lacList">  
+                           <option value="<s:property/>">  
+                                <s:property/>  
+                           </option>  
+                        </s:iterator>  
+                    </select>  
+                      
+<select id="ci" name="ci" style="width:100px;vertical-align:middle;">  
+</select>  
+</body>
+
+</HTML>

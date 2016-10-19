@@ -1,0 +1,57 @@
+<html>  
+    <head>  
+        <title>级联列表</title>  
+        <meta http-equiv='Content-Type' content='text/css;charset=utf-8'/>  
+        <style>  
+            .yemian{  
+                margin-left:30%;  
+                text-align:center;  
+                font-size:50px;  
+                width:500px;  
+                height:500px;  
+                background-color:blue;  
+            }     
+            .s{  
+                width:120px;  
+                height:25px;  
+            }  
+        </style>  
+        <script>  
+            function st(){  
+              
+                var sheng=document.getElementById('sheng');  
+                //存省的数组，可自行添加  
+                var shengs=new Array(new Option("--请选择省--",''),new Option("湖南","hn"),new Option("广东","gd"));  
+                for(var i=0;i<shengs.length;i++){  
+                    sheng.options[i]=shengs[i];  
+                }  
+            }  
+            //存市的数组，根据省的数组添加  
+            var shis=new Array();  
+            shis[0]=new Array(new Option("--请选择市--",''));  
+            shis[1]=new Array(new Option("长沙",'cs'),new Option("娄底",'ld'),new Option("永州",'yz'));  
+            shis[2]=new Array(new Option("广州",'gz'),new Option("深圳",'sz'));  
+            function change(obj){  
+                var shi=document.getElementById('shi');  
+                shi.options.length=0;  
+                var index=sheng.selectedIndex;  
+                for(var x in shis[index]){  
+                    shi.options[x]=shis[index][x]  
+                }  
+            }  
+        </script>  
+    </head>  
+    <body  onload="st()">  
+        <div class='yemian' >  
+            <div class="top">级联下拉列表</div>  
+            <select class='s' id='sheng' onchange='change(this)'>  
+                <option value=''>--请选择省--</option>  
+            </select>  
+            <select class='s' id='shi'>  
+                <option value=''>--请选择市--</option>  
+            </select>  
+        </div>  
+    </body>  
+  
+  
+</html> 

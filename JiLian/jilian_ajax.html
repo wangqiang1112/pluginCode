@@ -1,0 +1,89 @@
+<HTML encoding="UTF-8">
+<head>
+<title>Cascade Drop Down</title>
+<style type="text/css">
+.cascade_drop_down {width:200px;
+</style>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    
+    $(".cascade_drop_down").change(
+        function () {
+            var name = $(this).attr("name") + "_next";
+            var next = $("#" + name).val();
+            if (next == null || next == '') {
+                return;
+            }
+            
+            $("#" + next).empty();
+
+            $.ajax({
+                type:'post',
+                url: $(this).val() + '.txt',
+                data:'name=' + name + '&val=' + $(this).val(),
+                dataType:'text',
+                success:function(msg){
+                    ops = msg.split("\n");
+                    for (i = 0; i < ops.length; i++) {
+                        $("#" + next).append(ops[i]);
+                    }
+                },
+                error:function(){
+                    alert("failed.");
+                }
+            });
+        }
+    )
+    
+});
+
+</script>
+</head>
+<body>
+
+<div>
+<input type="hidden" id="province_next" name="province_next" value="city">
+<input type="hidden" id="city_next" name="city_next" value="">
+
+<select id="province" name="province" class="cascade_drop_down">
+    <option value="beijing">北京</option>
+    <option value="tianjin">天津</option>
+    <option value="shanghai">上海</option>
+    <option value="chongqing">重庆</option>
+    <option value="heilongjiang">黑龙江</option>
+    <option value="jilin">吉林</option>
+    <option value="liaoning">辽宁</option>
+</select>
+
+<select id="city" name="city" class="cascade_drop_down">
+</select>
+</div>
+
+<div>
+<input type="hidden" id="brand_next" name="brand_next" value="category">
+<input type="hidden" id="category_next" name="category_next" value="type">
+<input type="hidden" id="type_next" name="type_next" value="series">
+<input type="hidden" id="series_next" name="series_next" value="">
+
+<select id="brand" name="brand" class="cascade_drop_down">
+    <option value="canon">佳能</option>
+    <option value="sony">索尼</option>
+    <option value="panasonic">松下</option>
+</select>
+
+<select id="category" name="category" class="cascade_drop_down">
+</select>
+
+
+<select id="type" name="type" class="cascade_drop_down">
+</select>
+
+
+<select id="series" name="series" class="cascade_drop_down">
+</select>
+
+</div>
+</body>
+
+</HTML>

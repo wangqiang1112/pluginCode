@@ -1,4 +1,4 @@
-package demo;
+ï»¿package demo;
 
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
@@ -6,7 +6,16 @@ import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
- 
+
+/**
+è½¬è½½ï¼šhttp://blog.sina.com.cn/s/blog_b15639e00101st9t.html
+*/
+
+
+
+
+
+
 public class Aes2 {
        
    
@@ -16,7 +25,7 @@ public class Aes2 {
        
    
     public static byte[] initSecretKey() {
-        //·µ»ØÉú³ÉÖ¸¶¨Ëã·¨µÄÃØÃÜÃÜÔ¿µÄ KeyGenerator ¶ÔÏó
+        //è¿”å›ç”ŸæˆæŒ‡å®šç®—æ³•çš„ç§˜å¯†å¯†é’¥çš„ KeyGenerator å¯¹è±¡
         KeyGenerator kg = null;
         try {
             kg = KeyGenerator.getInstance(KEY_ALGORITHM);
@@ -24,17 +33,17 @@ public class Aes2 {
             e.printStackTrace();
             return new byte[0];
         }
-        //³õÊ¼»¯´ËÃÜÔ¿Éú³ÉÆ÷£¬Ê¹Æä¾ßÓĞÈ·¶¨µÄÃÜÔ¿´óĞ¡
-        //AES ÒªÇóÃÜÔ¿³¤¶ÈÎª 128
+        //åˆå§‹åŒ–æ­¤å¯†é’¥ç”Ÿæˆå™¨ï¼Œä½¿å…¶å…·æœ‰ç¡®å®šçš„å¯†é’¥å¤§å°
+        //AES è¦æ±‚å¯†é’¥é•¿åº¦ä¸º 128
         kg.init(128);
-        //Éú³ÉÒ»¸öÃÜÔ¿
+        //ç”Ÿæˆä¸€ä¸ªå¯†é’¥
         SecretKey  secretKey = kg.generateKey();
         return secretKey.getEncoded();
     }
        
    
     private static Key toKey(byte[] key){
-        //Éú³ÉÃÜÔ¿
+        //ç”Ÿæˆå¯†é’¥
         return new SecretKeySpec(key, KEY_ALGORITHM);
     }
        
@@ -51,18 +60,18 @@ public class Aes2 {
        
    
     public static byte[] encrypt(byte[] data,byte[] key,String cipherAlgorithm) throws Exception{
-        //»¹Ô­ÃÜÔ¿
+        //è¿˜åŸå¯†é’¥
         Key k = toKey(key);
         return encrypt(data, k, cipherAlgorithm);
     }
        
    
     public static byte[] encrypt(byte[] data,Key key,String cipherAlgorithm) throws Exception{
-        //ÊµÀı»¯
+        //å®ä¾‹åŒ–
         Cipher cipher = Cipher.getInstance(cipherAlgorithm);
-        //Ê¹ÓÃÃÜÔ¿³õÊ¼»¯£¬ÉèÖÃÎª¼ÓÃÜÄ£Ê½
+        //ä½¿ç”¨å¯†é’¥åˆå§‹åŒ–ï¼Œè®¾ç½®ä¸ºåŠ å¯†æ¨¡å¼
         cipher.init(Cipher.ENCRYPT_MODE, key);
-        //Ö´ĞĞ²Ù×÷
+        //æ‰§è¡Œæ“ä½œ
         return cipher.doFinal(data);
     }
        
@@ -80,17 +89,17 @@ public class Aes2 {
        
    
     public static byte[] decrypt(byte[] data,byte[] key,String cipherAlgorithm) throws Exception{
-        //»¹Ô­ÃÜÔ¿
+        //è¿˜åŸå¯†é’¥
         Key k = toKey(key);
         return decrypt(data, k, cipherAlgorithm);
     }
    
     public static byte[] decrypt(byte[] data,Key key,String cipherAlgorithm) throws Exception{
-        //ÊµÀı»¯
+        //å®ä¾‹åŒ–
         Cipher cipher = Cipher.getInstance(cipherAlgorithm);
-        //Ê¹ÓÃÃÜÔ¿³õÊ¼»¯£¬ÉèÖÃÎª½âÃÜÄ£Ê½
+        //ä½¿ç”¨å¯†é’¥åˆå§‹åŒ–ï¼Œè®¾ç½®ä¸ºè§£å¯†æ¨¡å¼
         cipher.init(Cipher.DECRYPT_MODE, key);
-        //Ö´ĞĞ²Ù×÷
+        //æ‰§è¡Œæ“ä½œ
         return cipher.doFinal(data);
     }
        
@@ -109,21 +118,21 @@ public class Aes2 {
        
     public static void main(String[] args) throws Exception {
         byte[] key = initSecretKey();
-        System.out.println("key£º"+showByteArray(key));
+        System.out.println("keyï¼š"+showByteArray(key));
            
         Key k = toKey(key);
            
-        String data ="AESÊı¾İ";
-        System.out.println("¼ÓÃÜÇ°Êı¾İ: string:"+data);
-        System.out.println("¼ÓÃÜÇ°Êı¾İ: byte[]:"+showByteArray(data.getBytes()));
+        String data ="AESæ•°æ®";
+        System.out.println("åŠ å¯†å‰æ•°æ®: string:"+data);
+        System.out.println("åŠ å¯†å‰æ•°æ®: byte[]:"+showByteArray(data.getBytes()));
         System.out.println();
         byte[] encryptData = encrypt(data.getBytes(), k);
-        System.out.println("¼ÓÃÜºóÊı¾İ: byte[]:"+showByteArray(encryptData));
-//        System.out.println("¼ÓÃÜºóÊı¾İ: hexStr:"+Hex.encodeHexStr(encryptData));
+        System.out.println("åŠ å¯†åæ•°æ®: byte[]:"+showByteArray(encryptData));
+//        System.out.println("åŠ å¯†åæ•°æ®: hexStr:"+Hex.encodeHexStr(encryptData));
         System.out.println();
         byte[] decryptData = decrypt(encryptData, k);
-        System.out.println("½âÃÜºóÊı¾İ: byte[]:"+showByteArray(decryptData));
-        System.out.println("½âÃÜºóÊı¾İ: string:"+new String(decryptData));
+        System.out.println("è§£å¯†åæ•°æ®: byte[]:"+showByteArray(decryptData));
+        System.out.println("è§£å¯†åæ•°æ®: string:"+new String(decryptData));
            
     }
  

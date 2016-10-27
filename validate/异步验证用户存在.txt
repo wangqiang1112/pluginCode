@@ -1,0 +1,71 @@
+
+
+//异步验证用户存在
+HTML头部引用：
+
+<script type="text/javascript" src="../js/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="../js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../js/messages_cn.js"></script>
+
+HTML内容（部分）：
+
+<form name="form1" id="form1" method="post" action="">
+<dl>
+  <dt>用户名：</dt>
+  <dd><input name="txtUserName" id="txtUserName" type="text" class="input1" /></dd>
+</dl>
+</form>
+
+JS代码部分：
+
+$(function() {
+//表单验证JS
+    $("#form1").validate({
+        //出错时添加的标签
+        errorElement: "span",
+        rules: {
+            txtUserName: {
+                required: true,
+                minlength: 3,
+                maxlength: 16,
+                remote: {
+                    type: "post",
+                    url: "/tools/ValidateUserName.ashx",
+                    data: {
+                        username: function() {
+                            return $("#txtUserName").val();
+                        }
+                    },
+                    dataType: "html",
+                    dataFilter: function(data, type) {
+                        if (data == "true")
+                            return true;
+                        else
+                            return false;
+                    }
+                }
+            }
+        },
+        success: function(label) {
+            //正确时的样式
+            label.text(" ").addClass("success");
+        },
+        messages: {
+            txtUserName: {
+                required: "请输入用户名，3-16个字符（字母、数字、下划线），注册后不能更改",
+                minlength: "用户名长度不能小于3个字符",
+                maxlength: "用户名长度不能大于16个字符",
+                remote: "用户名不可用"
+            }
+        }
+
+    });
+});
+
+应注意的地方：
+
+data: {
+   username: function() {
+   return $("#txtUserName").val();
+}
+有返回值，如果直接写“data: {username: $("#txtUserName").val();}”，这样是获取不到值的。

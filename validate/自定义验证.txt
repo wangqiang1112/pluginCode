@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>validate.js拓展验证</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript" src="jquery.validate.js"></script>
+<script type="text/javascript" src="validate.expand.js"></script>
+</head>
+
+<body>
+
+
+
+<form action=""  method="get" id="tinyphp">
+<input type="text" value="" name="isZipCode" />
+<input type="submit" value="提交" />
+</form>
+
+
+
+<script type="text/javascript">
+$("#tinyphp").validate({
+    // 添加验证规则
+    rules: {
+        isZipCode: {    //验证邮箱
+            isZipCode: true
+        }
+    }
+}); 
+
+
+jQuery.validator.addMethod("isZipCode", function(value, element) {   
+    var tel = /^[0-9]{6}$/;
+    return this.optional(element) || (tel.test(value));
+}, "请正确填写您的邮政编码");
+
+</script>
+</body>
+</html>

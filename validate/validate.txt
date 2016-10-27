@@ -1,0 +1,4 @@
+jQuery.validator.addMethod("zipCode", function(value, element) { 
+var tel = /^[0-9]{6}$/; 
+return this.optional(element) || (tel.test(value)); 
+}, "ÓÊÕş±àÂë¸ñÊ½´íÎó");

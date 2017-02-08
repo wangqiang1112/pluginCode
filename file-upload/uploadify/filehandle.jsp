@@ -27,6 +27,9 @@
                 uploader : '/web01/file/fileUpload.do',                //服务器响应地址
                 removeCompleted: false,  //进度条是否消失
                 'formData' : {'name':'lmy'},        //这里是上传时候指定的参数,如果需要动态指定参数需要在onUploadStart方法里面指定
+                'onCancel' : function(file) {
+		            alert('The file ' + file.name + ' was cancelled.');
+		        },
                 'onUploadStart' : function(file) {    //上传前触发的事件
                 	//$('#imageify').uploadify('cancel');
                    //在这里添加  $('#imageify').uploadify('cancel'); 可以取消上传
@@ -34,6 +37,10 @@
                 } ,
                 'onUploadSuccess' : function(file, data, response) {    //上传成功后触发的事件
                     //alert("上传成功");
+                    alert( 'id: ' + file.id+ ' - 索引: ' + file.index+ ' - 文件名: ' + file.name  
+                    + ' - 文件大小: ' + file.size+ ' - 类型: ' + file.type+ ' - 创建日期: ' + file.creationdate  
+                    + ' - 修改日期: ' + file.modificationdate+ ' - 文件状态: ' + file.filestatus+ ' - 服务器端消息: ' + data  
+                    + ' - 是否上传成功: ' + response);
                 },
                 onUploadError : function(file,errorCode,errorMsg,errorString,swfuploadifyQueue) { //这里是取消的时候发生    
 	                // $("#dialog-message").html(errorString); 
@@ -45,8 +52,11 @@
     </script>
 </head>
 <body>
-    <div id="queue"></div> <!-- 上传文件存放的地方，ID为queue -->
 	<input id="imageify" name="imageify" type="file"/>
+    <div id="queue"></div> <!-- 上传文件存放的地方，ID为queue -->
+<a href="javascript:$('#imageify').uploadify('cancel')">Cancel First File</a> 
+<a href="javascript:$('#imageify').uploadify('cancel', '*')">Clear the Queue</a> 
+<a href="javascript:$('#imageify').uploadify('upload', '*')">Upload the Files</a>
 
 </body>
 </html>

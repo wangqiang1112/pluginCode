@@ -1,0 +1,11 @@
+1）打开myeclipse
+2）新建ejb工程，接口打包后主要用于在weblogic上部署用。代码见Hello.jar
+3）新建客户端或者web测试或者java项目，测试用。代码见demo.jar
+4）开始部署
+5）新建weblogic域，部署有两种方式：
+   第一种:将ejb的包直接放入user_projects\domains\hello\autodeploy目录下，重启weblogic
+   第二种：启动weblogic后在部署页面，安装ejb的包
+6）关于jndi有ejb-jar.xml和weblogic-ejb-jar.xml两个配置文件，这两个文件在java项目和ejb项目中没用，主要是weblogic读取；
+7）weblogic-ejb-jar.xml该文件中的jndiname标签的名字控制了weblogic中jndi树结构中的名字；
+   <jndi-name>hellojndi.jndi_hello_name</jndi-name>该标签中“.”的作用可以控制weblogic中的jndi树目录结构
+8）测试类中引用的就是该jndi的全名，如：HelloWorld h = (HelloWorld)ic.lookup("hellojndi.jndi_hello_name");

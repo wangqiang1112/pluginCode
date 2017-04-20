@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<!-- saved from url=(0046)http://www.cnblogs.com/HondaHsu/p/4267972.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>weblogic的集群与配置 - xuzhengzhu - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./weblogic的集群与配置_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./weblogic的集群与配置_files/bundle-KJC.css">
+<link id="mobile-style" media="only screen and (max-width: 768px)" type="text/css" rel="stylesheet" href="./weblogic的集群与配置_files/bundle-KJC-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/HondaHsu/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/HondaHsu/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/HondaHsu/wlwmanifest.xml">
+<script async="" src="./weblogic的集群与配置_files/analytics.js.下载"></script><script type="text/javascript" src="./weblogic的集群与配置_files/encoder.js.下载"></script><script src="./weblogic的集群与配置_files/jquery.js.下载" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'HondaHsu', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="./weblogic的集群与配置_files/blog-common.js.下载" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<table class="Framework" cellspacing="0" cellpadding="0" width="100%">
+	<tbody><tr>
+		<td colspan="3">
+			
+<div id="top">
+<table cellpadding="10" cellspacing="0">
+	<tbody><tr>
+		<td nowrap="">
+			<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/HondaHsu/"><font size="6px" color="red">Oracle &amp;   BI &amp;  大数据分析</font></a></h1>
+			<font size="4px">把握现在,领导未来</font>
+		</td>
+	</tr>
+</tbody></table>
+</div>
+<div id="sub">
+	<div id="sub-right"><div id="blog_stats">
+<div class="BlogStats">posts - 603, comments - 27, trackbacks - 18, articles - 0</div></div></div>
+	
+&nbsp;
+<a id="blog_nav_sitehome" href="http://www.cnblogs.com/">博客园</a>&nbsp;:: 
+<a id="blog_nav_myhome" href="http://www.cnblogs.com/HondaHsu/">首页</a>&nbsp;::
+<a id="blog_nav_newpost" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a>&nbsp;::
+<a id="blog_nav_contact" accesskey="9" rel="nofollow" href="https://msg.cnblogs.com/send/xuzhengzhu">联系</a>&nbsp;::
+<a id="blog_nav_rss" href="http://www.cnblogs.com/HondaHsu/rss">订阅</a>
+<a id="blog_nav_rss_image" class="XMLLink" href="http://www.cnblogs.com/HondaHsu/rss"><img src="./weblogic的集群与配置_files/xml.gif" alt="订阅"></a>&nbsp;::
+<a id="blog_nav_admin" rel="nofollow" href="https://i.cnblogs.com/">管理</a>
+
+</div>
+		</td>
+	</tr>
+	<tr>
+		<td class="LeftCell">
+			<div id="leftmenu">
+            	
+		            <div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/03/01&#39;);return false;">&lt;</a></td><td align="center">2017年4月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/05/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">26</td><td class="CalOtherMonthDay" align="center">27</td><td class="CalOtherMonthDay" align="center">28</td><td class="CalOtherMonthDay" align="center">29</td><td class="CalOtherMonthDay" align="center">30</td><td class="CalOtherMonthDay" align="center">31</td><td class="CalWeekendDay" align="center">1</td></tr><tr><td class="CalWeekendDay" align="center">2</td><td align="center">3</td><td align="center">4</td><td align="center">5</td><td align="center">6</td><td align="center">7</td><td class="CalWeekendDay" align="center">8</td></tr><tr><td class="CalWeekendDay" align="center">9</td><td align="center">10</td><td align="center">11</td><td align="center">12</td><td align="center">13</td><td align="center">14</td><td class="CalWeekendDay" align="center">15</td></tr><tr><td class="CalWeekendDay" align="center">16</td><td align="center">17</td><td align="center">18</td><td align="center">19</td><td class="CalTodayDay" align="center">20</td><td align="center">21</td><td class="CalWeekendDay" align="center">22</td></tr><tr><td class="CalWeekendDay" align="center">23</td><td align="center">24</td><td align="center">25</td><td align="center">26</td><td align="center">27</td><td align="center">28</td><td class="CalWeekendDay" align="center">29</td></tr><tr><td class="CalWeekendDay" align="center">30</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+		            
+<div id="cell">
+<img src="./weblogic的集群与配置_files/icon-group.jpg" hspace="5" align="left" vspace="2"><h3>公告</h3>
+<div id="news">
+	<div id="blog-news"><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/HondaHsu/">xuzhengzhu</a><br>园龄：<a href="http://home.cnblogs.com/u/HondaHsu/" title="入园时间：2007-04-05">10年</a><br>粉丝：<a href="http://home.cnblogs.com/u/HondaHsu/followers/">178</a><br>关注：<a href="http://home.cnblogs.com/u/HondaHsu/followees/">4</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;3b703d0b-63cf-dd11-9e4d-001cf0cd104b&#39;)">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+</div>
+
+	            
+	            <div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="cell">
+<img src="./weblogic的集群与配置_files/icon-group.jpg" hspace="5" align="left" vspace="2">
+<h3 class="catListTitle">搜索</h3>
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div></div><div id="sidebar_shortcut" class="sidebar-block">
+<div id="cell">
+<img src="./weblogic的集群与配置_files/icon-group.jpg" hspace="5" align="left" vspace="2">
+<h3>常用链接</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/HondaHsu/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="http://www.cnblogs.com/HondaHsu/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="http://www.cnblogs.com/HondaHsu/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="http://www.cnblogs.com/HondaHsu/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="http://www.cnblogs.com/HondaHsu/tag/" title="我的博客的标签列表">我的标签</a></li>
+<li><a id="itemListLink" onclick="this.blur();WarpClass(&#39;itemListLink&#39;, &#39;itemListLin_con&#39;);return false;" href="http://www.cnblogs.com/HondaHsu/p/4267972.html#">更多链接</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+
+</div>
+</div></div><div id="sidebar_toptags" class="sidebar-block">
+<div id="cell">
+<img src="./weblogic的集群与配置_files/icon-group.jpg" hspace="5" align="left" vspace="2">
+<h3>我的标签</h3>
+<div id="MyTag">
+<ul>
+<li><a href="http://www.cnblogs.com/HondaHsu/tag/informatica/">informatica</a>(44)</li><li><a href="http://www.cnblogs.com/HondaHsu/tag/Oracle%20RAC/">Oracle RAC</a>(22)</li><li><a href="http://www.cnblogs.com/HondaHsu/tag/MySQL%E5%9F%BA%E7%A1%80/">MySQL基础</a>(15)</li><li><a href="http://www.cnblogs.com/HondaHsu/tag/oracle%20%E8%AF%BE%E7%A8%8B/">oracle 课程</a>(12)</li><li><a href="http://www.cnblogs.com/HondaHsu/tag/Cognos/">Cognos</a>(10)</li><li><a href="http://www.cnblogs.com/HondaHsu/tag/%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B/">数据模型</a>(10)</li><li><a href="http://www.cnblogs.com/HondaHsu/tag/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">性能优化</a>(10)</li><li><a href="http://www.cnblogs.com/HondaHsu/tag/python/">python</a>(7)</li><li><a href="http://www.cnblogs.com/HondaHsu/tag/RMAN/">RMAN</a>(6)</li><li><a href="http://www.cnblogs.com/HondaHsu/tag/SHELL/">SHELL</a>(6)</li><li><a href="http://www.cnblogs.com/HondaHsu/tag/">更多</a></li>
+</ul>
+</div>
+</div></div><div id="sidebar_categories">
+		<div id="cell">
+		<img src="./weblogic的集群与配置_files/icon-group.jpg" hspace="5" align="left" vspace="2"><h3>随笔分类</h3>
+		
+				<ul>
+			
+				<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/HondaHsu/category/98425.html">C#.Net开发(30)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/HondaHsu/category/307215.html">Cognos(27)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/HondaHsu/category/652108.html">Hadoop(5)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/HondaHsu/category/366966.html">Java(2)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/HondaHsu/category/148231.html">Linux&amp;Shell(50)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/HondaHsu/category/662721.html">MYSQL 错误(3)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/HondaHsu/category/898975.html">MYSQL 管理(2)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/HondaHsu/category/563395.html">MySQL 开发基础(27)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/HondaHsu/category/611508.html">Oracle 备份管理(20)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/HondaHsu/category/391876.html">Oracle 常见ORA错误(21)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_0_Link_10" href="http://www.cnblogs.com/HondaHsu/category/391877.html">Oracle 常见问题(68)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_0_Link_11" href="http://www.cnblogs.com/HondaHsu/category/391882.html">Oracle 概念(27)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_0_Link_12" href="http://www.cnblogs.com/HondaHsu/category/391888.html">Oracle 工具使用(15)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_0_Link_13" href="http://www.cnblogs.com/HondaHsu/category/97953.html">Oracle 管理(12)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_0_Link_14" href="http://www.cnblogs.com/HondaHsu/category/761899.html">Oracle 管理-DBA常用SQL(9)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_0_Link_15" href="http://www.cnblogs.com/HondaHsu/category/733740.html">Oracle 管理-安装配置(11)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_0_Link_16" href="http://www.cnblogs.com/HondaHsu/category/621948.html">Oracle 管理-集群安装(30)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_0_Link_17" href="http://www.cnblogs.com/HondaHsu/category/391874.html">Oracle 管理-命令(12)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_0_Link_18" href="http://www.cnblogs.com/HondaHsu/category/899009.html">Oracle 管理-权限管理(6)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_0_Link_19" href="http://www.cnblogs.com/HondaHsu/category/899011.html">Oracle 管理-日常监控(2)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_0_Link_20" href="http://www.cnblogs.com/HondaHsu/category/391934.html">Oracle 管理-优化(45)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_0_Link_21" href="http://www.cnblogs.com/HondaHsu/category/98423.html">Oracle 开发-常用SQL(25)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_0_Link_22" href="http://www.cnblogs.com/HondaHsu/category/391950.html">Oracle 开发-特殊SQL(11)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_0_Link_23" href="http://www.cnblogs.com/HondaHsu/category/98424.html">Oracle 考试(11)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_0_Link_24" href="http://www.cnblogs.com/HondaHsu/category/652152.html">Oracle 培训课程(11)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_0_Link_25" href="http://www.cnblogs.com/HondaHsu/category/650656.html">Python(9)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_0_Link_26" href="http://www.cnblogs.com/HondaHsu/category/868869.html">SQL Server 管理(4)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_0_Link_27" href="http://www.cnblogs.com/HondaHsu/category/899302.html">SQL Server开发(2)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_0_Link_28" href="http://www.cnblogs.com/HondaHsu/category/899934.html">SQL Server优化 </a>
+				</li>
+			
+				<li><a id="CatList_LinkList_0_Link_29" href="http://www.cnblogs.com/HondaHsu/category/735054.html">WEB服务器</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_0_Link_30" href="http://www.cnblogs.com/HondaHsu/category/521297.html">windows&amp;批处理(8)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_0_Link_31" href="http://www.cnblogs.com/HondaHsu/category/735053.html">负载均衡器(1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_0_Link_32" href="http://www.cnblogs.com/HondaHsu/category/134142.html">数据仓库(47)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_0_Link_33" href="http://www.cnblogs.com/HondaHsu/category/663199.html">数据分析(6)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_0_Link_34" href="http://www.cnblogs.com/HondaHsu/category/667802.html">数据模型(11)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_0_Link_35" href="http://www.cnblogs.com/HondaHsu/category/391930.html">数据同步与ETL(63)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_0_Link_36" href="http://www.cnblogs.com/HondaHsu/category/746841.html">文档(2)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_0_Link_37" href="http://www.cnblogs.com/HondaHsu/category/687710.html">项目管理(4)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_0_Link_38" href="http://www.cnblogs.com/HondaHsu/category/645000.html">中间件(6)</a>
+				</li>
+			
+				</ul>
+			</div>
+	
+		<div id="cell">
+		<img src="./weblogic的集群与配置_files/icon-group.jpg" hspace="5" align="left" vspace="2"><h3>随笔档案</h3>
+		
+				<ul>
+			
+				<li><a id="CatList_LinkList_1_Link_0" href="http://www.cnblogs.com/HondaHsu/archive/2017/03.html">2017年3月 (1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_1" href="http://www.cnblogs.com/HondaHsu/archive/2017/01.html">2017年1月 (3)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_2" href="http://www.cnblogs.com/HondaHsu/archive/2016/11.html">2016年11月 (8)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_3" href="http://www.cnblogs.com/HondaHsu/archive/2016/10.html">2016年10月 (9)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_4" href="http://www.cnblogs.com/HondaHsu/archive/2016/08.html">2016年8月 (4)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_5" href="http://www.cnblogs.com/HondaHsu/archive/2016/07.html">2016年7月 (1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_6" href="http://www.cnblogs.com/HondaHsu/archive/2016/05.html">2016年5月 (4)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_7" href="http://www.cnblogs.com/HondaHsu/archive/2016/04.html">2016年4月 (1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_8" href="http://www.cnblogs.com/HondaHsu/archive/2016/03.html">2016年3月 (2)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_9" href="http://www.cnblogs.com/HondaHsu/archive/2016/02.html">2016年2月 (2)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_10" href="http://www.cnblogs.com/HondaHsu/archive/2016/01.html">2016年1月 (1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_11" href="http://www.cnblogs.com/HondaHsu/archive/2015/12.html">2015年12月 (6)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_12" href="http://www.cnblogs.com/HondaHsu/archive/2015/11.html">2015年11月 (1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_13" href="http://www.cnblogs.com/HondaHsu/archive/2015/10.html">2015年10月 (20)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_14" href="http://www.cnblogs.com/HondaHsu/archive/2015/09.html">2015年9月 (12)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_15" href="http://www.cnblogs.com/HondaHsu/archive/2015/08.html">2015年8月 (10)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_16" href="http://www.cnblogs.com/HondaHsu/archive/2015/06.html">2015年6月 (1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_17" href="http://www.cnblogs.com/HondaHsu/archive/2015/05.html">2015年5月 (9)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_18" href="http://www.cnblogs.com/HondaHsu/archive/2015/04.html">2015年4月 (42)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_19" href="http://www.cnblogs.com/HondaHsu/archive/2015/03.html">2015年3月 (28)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_20" href="http://www.cnblogs.com/HondaHsu/archive/2015/02.html">2015年2月 (17)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_21" href="http://www.cnblogs.com/HondaHsu/archive/2015/01.html">2015年1月 (20)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_22" href="http://www.cnblogs.com/HondaHsu/archive/2014/12.html">2014年12月 (3)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_23" href="http://www.cnblogs.com/HondaHsu/archive/2014/10.html">2014年10月 (24)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_24" href="http://www.cnblogs.com/HondaHsu/archive/2014/09.html">2014年9月 (8)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_25" href="http://www.cnblogs.com/HondaHsu/archive/2014/08.html">2014年8月 (1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_26" href="http://www.cnblogs.com/HondaHsu/archive/2014/07.html">2014年7月 (1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_27" href="http://www.cnblogs.com/HondaHsu/archive/2014/05.html">2014年5月 (2)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_28" href="http://www.cnblogs.com/HondaHsu/archive/2014/04.html">2014年4月 (9)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_29" href="http://www.cnblogs.com/HondaHsu/archive/2014/03.html">2014年3月 (16)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_30" href="http://www.cnblogs.com/HondaHsu/archive/2014/02.html">2014年2月 (2)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_31" href="http://www.cnblogs.com/HondaHsu/archive/2014/01.html">2014年1月 (17)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_32" href="http://www.cnblogs.com/HondaHsu/archive/2013/12.html">2013年12月 (1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_33" href="http://www.cnblogs.com/HondaHsu/archive/2013/10.html">2013年10月 (2)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_34" href="http://www.cnblogs.com/HondaHsu/archive/2013/09.html">2013年9月 (1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_35" href="http://www.cnblogs.com/HondaHsu/archive/2013/08.html">2013年8月 (3)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_36" href="http://www.cnblogs.com/HondaHsu/archive/2013/07.html">2013年7月 (2)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_37" href="http://www.cnblogs.com/HondaHsu/archive/2013/06.html">2013年6月 (1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_38" href="http://www.cnblogs.com/HondaHsu/archive/2013/05.html">2013年5月 (7)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_39" href="http://www.cnblogs.com/HondaHsu/archive/2013/03.html">2013年3月 (1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_40" href="http://www.cnblogs.com/HondaHsu/archive/2013/01.html">2013年1月 (1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_41" href="http://www.cnblogs.com/HondaHsu/archive/2012/12.html">2012年12月 (4)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_42" href="http://www.cnblogs.com/HondaHsu/archive/2012/11.html">2012年11月 (5)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_43" href="http://www.cnblogs.com/HondaHsu/archive/2012/10.html">2012年10月 (9)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_44" href="http://www.cnblogs.com/HondaHsu/archive/2012/09.html">2012年9月 (12)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_45" href="http://www.cnblogs.com/HondaHsu/archive/2012/08.html">2012年8月 (14)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_46" href="http://www.cnblogs.com/HondaHsu/archive/2012/07.html">2012年7月 (17)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_47" href="http://www.cnblogs.com/HondaHsu/archive/2012/06.html">2012年6月 (9)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_48" href="http://www.cnblogs.com/HondaHsu/archive/2012/05.html">2012年5月 (4)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_49" href="http://www.cnblogs.com/HondaHsu/archive/2012/04.html">2012年4月 (2)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_50" href="http://www.cnblogs.com/HondaHsu/archive/2012/03.html">2012年3月 (4)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_51" href="http://www.cnblogs.com/HondaHsu/archive/2012/02.html">2012年2月 (3)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_52" href="http://www.cnblogs.com/HondaHsu/archive/2011/10.html">2011年10月 (1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_53" href="http://www.cnblogs.com/HondaHsu/archive/2011/09.html">2011年9月 (12)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_54" href="http://www.cnblogs.com/HondaHsu/archive/2011/08.html">2011年8月 (3)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_55" href="http://www.cnblogs.com/HondaHsu/archive/2011/07.html">2011年7月 (1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_56" href="http://www.cnblogs.com/HondaHsu/archive/2011/06.html">2011年6月 (9)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_57" href="http://www.cnblogs.com/HondaHsu/archive/2011/02.html">2011年2月 (2)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_58" href="http://www.cnblogs.com/HondaHsu/archive/2010/12.html">2010年12月 (1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_59" href="http://www.cnblogs.com/HondaHsu/archive/2010/11.html">2010年11月 (7)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_60" href="http://www.cnblogs.com/HondaHsu/archive/2010/03.html">2010年3月 (6)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_61" href="http://www.cnblogs.com/HondaHsu/archive/2009/08.html">2009年8月 (9)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_62" href="http://www.cnblogs.com/HondaHsu/archive/2009/01.html">2009年1月 (1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_63" href="http://www.cnblogs.com/HondaHsu/archive/2008/12.html">2008年12月 (23)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_64" href="http://www.cnblogs.com/HondaHsu/archive/2008/11.html">2008年11月 (4)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_65" href="http://www.cnblogs.com/HondaHsu/archive/2008/10.html">2008年10月 (2)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_66" href="http://www.cnblogs.com/HondaHsu/archive/2008/09.html">2008年9月 (2)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_67" href="http://www.cnblogs.com/HondaHsu/archive/2008/08.html">2008年8月 (23)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_68" href="http://www.cnblogs.com/HondaHsu/archive/2008/07.html">2008年7月 (1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_69" href="http://www.cnblogs.com/HondaHsu/archive/2008/05.html">2008年5月 (9)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_70" href="http://www.cnblogs.com/HondaHsu/archive/2008/04.html">2008年4月 (7)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_71" href="http://www.cnblogs.com/HondaHsu/archive/2008/01.html">2008年1月 (1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_72" href="http://www.cnblogs.com/HondaHsu/archive/2007/12.html">2007年12月 (1)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_73" href="http://www.cnblogs.com/HondaHsu/archive/2007/07.html">2007年7月 (28)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_74" href="http://www.cnblogs.com/HondaHsu/archive/2007/06.html">2007年6月 (59)</a>
+				</li>
+			
+				<li><a id="CatList_LinkList_1_Link_75" href="http://www.cnblogs.com/HondaHsu/archive/2007/04.html">2007年4月 (4)</a>
+				</li>
+			
+				</ul>
+			</div>
+	
+		<div id="cell">
+		<img src="./weblogic的集群与配置_files/icon-group.jpg" hspace="5" align="left" vspace="2"><h3>相册</h3>
+		
+				<ul>
+			
+				<li><a id="CatList_LinkList_2_Link_0" href="http://www.cnblogs.com/HondaHsu/gallery/98335.html" rel="nofollow">Baby(1)</a>
+				</li>
+			
+				</ul>
+			</div>
+	</div><div id="recent_comments_wrap">
+    <div id="cell">
+        <img src="./weblogic的集群与配置_files/icon-group.jpg" hspace="5" align="left" vspace="2">
+        <h3>最新评论</h3>
+        <div class="RecentComment">
+            <div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/HondaHsu/p/3641183.html#3643493">1. Re:MySQL与Oracle 差异比较之二基本语法</a></li>
+        <li class="recent_comment_body">有个命令行下的高效迁移工具ora2mysql<br><a href="http://www.cnblogs.com/HondaHsu/p/4267972.html" target="_blank"></a>=3</li>
+        <li class="recent_comment_author">--友哥</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/HondaHsu/p/4873804.html#3641979">2. Re:批处理之删除或备份指定天数之前的文件</a></li>
+        <li class="recent_comment_body">非常感谢你的示例，学习了！</li>
+        <li class="recent_comment_author">--oldyu</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/HondaHsu/p/4885318.html#3634538">3. Re:RMAN备份与恢复之spfile</a></li>
+        <li class="recent_comment_body">学习了～</li>
+        <li class="recent_comment_author">--规格严格-功夫到家</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/HondaHsu/p/4267972.html#3598396">4. Re:weblogic的集群与配置</a></li>
+        <li class="recent_comment_body">学习了！！</li>
+        <li class="recent_comment_author">--规格严格-功夫到家</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/HondaHsu/p/4267972.html#3490073">5. Re:weblogic的集群与配置</a></li>
+        <li class="recent_comment_body">非常好  非常受帮助</li>
+        <li class="recent_comment_author">--hui12345</li>
+</ul>
+</div>
+        </div>
+    </div>
+</div>
+<div id="topview_posts_wrap">
+    <div id="cell">
+        <img src="./weblogic的集群与配置_files/icon-group.jpg" hspace="5" align="left" vspace="2">
+        <h3>阅读排行榜</h3>
+        <div class="RecentComment">
+            <div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/HondaHsu/p/3640180.html">1. 如何修改MySQL字符集(58566)</a></li><li><a href="http://www.cnblogs.com/HondaHsu/p/4267972.html">2. weblogic的集群与配置(43882)</a></li><li><a href="http://www.cnblogs.com/HondaHsu/p/4346354.html">3. Hadoop Hive基础sql语法(26903)</a></li><li><a href="http://www.cnblogs.com/HondaHsu/archive/2013/05/30/3107793.html">4. 如何设置虚拟机网络(26354)</a></li><li><a href="http://www.cnblogs.com/HondaHsu/p/3641190.html">5. MySQL与Oracle 差异比较之三函数(15600)</a></li></ul></div>
+        </div>
+    </div>
+</div><div id="topfeedback_posts_wrap">
+    <div id="cell">
+        <img src="./weblogic的集群与配置_files/icon-group.jpg" hspace="5" align="left" vspace="2">
+        <h3>评论排行榜</h3>
+        <div class="RecentComment">
+            <div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/HondaHsu/p/4267972.html">1. weblogic的集群与配置(5)</a></li><li><a href="http://www.cnblogs.com/HondaHsu/archive/2012/08/27/2658828.html">2. 如何查询Oracle性能监控(2)</a></li><li><a href="http://www.cnblogs.com/HondaHsu/archive/2012/09/28/2707487.html">3. Oracle Purge和drop的区别(2)</a></li><li><a href="http://www.cnblogs.com/HondaHsu/archive/2012/05/11/2496425.html">4. ETL简介(2)</a></li><li><a href="http://www.cnblogs.com/HondaHsu/archive/2011/06/28/2091986.html">5. 关于TRANSFROM中生成IQD文件的错误，提示无cognos.ini(1)</a></li></ul></div>
+        </div>
+    </div>    
+</div>
+<div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<div id="cell">
+<img src="./weblogic的集群与配置_files/icon-group.jpg" hspace="5" align="left" vspace="2"><h3>推荐排行榜</h3>
+<div class="RecentComment">
+	<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/HondaHsu/p/4346354.html">1. Hadoop Hive基础sql语法(6)</a></li><li><a href="http://www.cnblogs.com/HondaHsu/p/4267972.html">2. weblogic的集群与配置(5)</a></li><li><a href="http://www.cnblogs.com/HondaHsu/p/3641116.html">3. MySQL与Oracle 差异比较之一数据类型(3)</a></li><li><a href="http://www.cnblogs.com/HondaHsu/p/3641258.html">4. MySQL与Oracle 差异比较之五存储过程&amp;Function(3)</a></li><li><a href="http://www.cnblogs.com/HondaHsu/p/3641190.html">5. MySQL与Oracle 差异比较之三函数(2)</a></li></ul></div>
+</div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+		</td>
+		<td class="MainCell">
+			<div id="main">
+				
+<div id="post_detail">
+	<div class="post">
+		<div class="posthead">
+			<h2>
+				<a id="cb_post_title_url" class="singleposttitle" href="http://www.cnblogs.com/HondaHsu/p/4267972.html">weblogic的集群与配置</a>
+			</h2>
+ 			Posted on <span id="post-date">2015-02-02 15:53</span> <a href="http://www.cnblogs.com/HondaHsu/">xuzhengzhu</a> 阅读(<span id="post_view_count">43883</span>) 评论(<span id="post_comment_count">5</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=4267972" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/HondaHsu/p/4267972.html#" onclick="AddToWz(4267972);return false;">收藏</a>
+			<script type="text/javascript">var allowComments=true,cb_blogId=25623,cb_entryId=4267972,cb_blogApp=currentBlogApp,cb_blogUserGuid='3b703d0b-63cf-dd11-9e4d-001cf0cd104b',cb_entryCreatedDate='2015/2/2 15:53:00';loadViewCount(cb_entryId);</script>
+			
+		</div>
+		<div class="postbody"><div id="cnblogs_post_body"><div class="cnblogs_code" onclick="cnblogs_code_show(&#39;e9858c18-6ada-4c54-bf18-be2eb3017c26&#39;)"><img id="code_img_closed_e9858c18-6ada-4c54-bf18-be2eb3017c26" class="code_img_closed" src="./weblogic的集群与配置_files/ContractedBlock.gif" alt=""><img id="code_img_opened_e9858c18-6ada-4c54-bf18-be2eb3017c26" class="code_img_opened" style="display: none;" onclick="cnblogs_code_hide(&#39;e9858c18-6ada-4c54-bf18-be2eb3017c26&#39;,event)" src="./weblogic的集群与配置_files/ExpandedBlockStart.gif" alt="">
+<div id="cnblogs_code_open_e9858c18-6ada-4c54-bf18-be2eb3017c26" class="cnblogs_code_hide">
+<pre>目录(?)[-]
+
+1.Weblogic的集群
+2.创建Weblogic集群前的规划
+3.开始创建我们的Weblogic集群
+1.1 创建集群的总控制端aminserver
+2.2 创建集群中的节点mycluster1 mycluster2
+3.3 如何启动集群
+4.jdbc集群
+5.把工程布署到集群环境中去
+6.使用Apache与Weblogic集群整合
+7.JMS集群</pre>
+</div>
+<span class="cnblogs_code_collapse">目录</span></div>
+<p>&nbsp;</p>
+<p>本文转摘于；<a href="http://blog.csdn.net/liuqiwen0512/article/details/7739421">http://blog.csdn.net/liuqiwen0512/article/details/7739421</a></p>
+<h1 class="article_content">一、Weblogic的集群</h1>
+<p class="article_content">还记得我们在第五天教程中讲到的关于Tomcat的集群吗?</p>
+<p class="article_content"><img src="./weblogic的集群与配置_files/1342774950_9533.jpg" alt=""></p>
+<p class="article_content">&nbsp;</p>
+<p class="article_content">两个tomcat做node即tomcat1, tomcat2，使用Apache HttpServer做请求派发。</p>
+<p class="article_content">现在看看WebLogic的集群吧，其实也差不多。</p>
+<div class="article_content"><img src="./weblogic的集群与配置_files/1342774999_2785.jpg" alt=""></div>
+<p class="article_content">&nbsp;</p>
+<p class="article_content">区别在于：</p>
+<ol>
+<li class="article_content">Tomcat的集群的实现为两个物理上不同的tomcat，分别就是两个node，没有总控端，没有任何控制台可言（只有通过比较简陋的<a href="http://localhost:8080/manager/html">http://localhost:8080/manager/html</a>，或者是<a href="http://localhost:9090/manager/html">http://localhost:9090/manager/html</a>）来对每个tomcat节点进行监视（此处只有monitor没有control）；</li>
+</ol>
+<p class="article_content"><strong><span style="color: red;">　　　　如果我们要布署我们的<span style="color: red;">Web<span style="color: red;">应用，需要分别手工往每个<span style="color: red;">Tomcat<span style="color: red;">的<span style="color: red;">webapp<span style="color: red;">目录里拷贝文件。</span></span></span></span></span></span></span></strong></p>
+<ol>
+<li class="article_content">Weblogic的集群必须设立一个总控端，可从上图中看出，然后这个总控端我们把它称为AdminServer，然后在其下可以挂weblogic的集群的node，这个node不是物理上不同的两个weblogic，而是不同的domain，我们假设domain1, domain2为两个weblogic的集群的节点。</li>
+</ol>
+<p class="article_content"><strong><span style="color: red;">　　　　如果我们要布署我们的<span style="color: red;">Web<span style="color: red;">应用，只需要在总控端布署一次，然后挂在这个总控端下的节点将会自动将我们的<span style="color: red;">web<span style="color: red;">应用发布到每一个节点。</span></span></span></span></span></strong></p>
+<p class="article_content">　　因此，要实现weblogic的集群必须：</p>
+<ul>
+<li class="article_content">安装Weblogic</li>
+<li class="article_content">创建一个AdminServer的domain</li>
+<li class="article_content">在AdminServer上建立集群总控端</li>
+<li class="article_content">分别创建每一个要加入此集群总控端的node，也是一个个的domain</li>
+</ul>
+<h1 class="article_content">二、创建Weblogic集群前的规划</h1>
+<p class="article_content">根据第一节中的内容，我们将我们用于实验的Weblogic规划成3个domain，每个domain都包含有下列的必不可少的属性：</p>
+<ul>
+<li class="article_content">AdminConsole（总控端）</li>
+</ul>
+<p class="article_content">　　　　逻辑名</p>
+<p class="article_content">　　　　物理名(domain的系统路径)</p>
+<p class="article_content">　　　　端口号</p>
+<p class="article_content">　　　　计器名(IP)</p>
+<p class="article_content">　　　　登录信息(username/password)</p>
+<ul>
+<li class="article_content">Cluster node1（集群节点1）</li>
+</ul>
+<p class="article_content">　　　　逻辑名</p>
+<p class="article_content">　　　　物理名(domain的系统路径)</p>
+<p class="article_content">　　　　端口号</p>
+<p class="article_content">　　　　计器名(IP)</p>
+<p class="article_content">　　　　登录信息(username/password)</p>
+<ul>
+<li class="article_content">Cluster node2（集群节点2）</li>
+</ul>
+<p class="article_content">　　　　逻辑名</p>
+<p class="article_content">　　　　物理名(domain的系统路径)</p>
+<p class="article_content">　　　　端口号</p>
+<p class="article_content">　　　　计器名(IP)</p>
+<p class="article_content">　　　　登录信息(username/password)</p>
+<p class="article_content">　　我们用表格列出我们将要创建的集群中总控端与每个节点的集息：</p>
+<div class="article_content">
+<table border="1" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td style="background: #4f81bd;" valign="top">
+<p align="center"><strong><span style="color: white;">物理名</span></strong></p>
+</td>
+<td style="background: #4f81bd;" valign="top">
+<p align="center"><strong><span style="color: white;">逻辑名</span></strong></p>
+</td>
+<td style="background: #4f81bd;" valign="top">
+<p align="center"><strong><span style="color: white;">端口号</span></strong></p>
+</td>
+<td style="background: #4f81bd;" valign="top">
+<p align="center"><strong><span style="color: white;">主机名（<span style="color: white;">IP<span style="color: white;">）</span></span></span></strong></p>
+</td>
+<td style="background: #4f81bd;" valign="top">
+<p align="center"><strong><span style="color: white;">登录信息</span></strong></p>
+</td>
+</tr>
+<tr>
+<td valign="top">
+<p><strong>\bea\user_projects\domains\adminserver </strong></p>
+</td>
+<td valign="top">
+<p>AdminServer</p>
+</td>
+<td valign="top">
+<p>7001</p>
+</td>
+<td valign="top">
+<p>localhost</p>
+</td>
+<td valign="top">
+<p>weblogic/password_1</p>
+</td>
+</tr>
+<tr>
+<td valign="top">
+<p><strong>\bea\user_projects\domains\server1</strong></p>
+</td>
+<td valign="top">
+<p>mycluster1</p>
+</td>
+<td valign="top">
+<p>7011</p>
+</td>
+<td valign="top">
+<p>localhost</p>
+</td>
+<td valign="top">
+<p>weblogic/password_1</p>
+</td>
+</tr>
+<tr>
+<td valign="top">
+<p><strong>bea\user_projects\domains\server2</strong></p>
+</td>
+<td valign="top">
+<p>mycluster2</p>
+</td>
+<td valign="top">
+<p>7012</p>
+</td>
+<td valign="top">
+<p>localhost</p>
+</td>
+<td valign="top">
+<p>weblogic/password_1</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="article_content">　　规划好了，就可以开始来创建我们的集群了。</p>
+<h1 class="article_content">三、开始创建我们的Weblogic集群</h1>
+<h2 class="article_content"><a name="t3"></a><a name="_Toc330565159"></a>3.1 创建集群的总控制端（aminserver）</h2>
+<p class="article_content"><strong>　　Windows:</strong></p>
+<p class="article_content">　　Windows下通过菜单-&gt;OracleWeblogic-&gt;Weblogic Server 11gR1-&gt;Tools-&gt;Configuration Wizard来启动创建domain的wizard。</p>
+<div class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342775118_4974.jpg" alt=""></div>
+<p class="article_content">&nbsp;</p>
+<p class="article_content">　　Unix/Linux：</p>
+<p class="article_content">　　Unix/Linux下通过</p>
+<div class="article_content">
+<table style="background: #d9d9d9;" border="1" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td valign="top">
+<p><strong>cd /bea/wlserver/common/bin</strong></p>
+<p><strong>./config.sh</strong></p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="article_content">　　来启动创建domain的wizard。</p>
+<div class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342775143_3033.jpg" alt=""></div>
+<p class="article_content">&nbsp;</p>
+<p class="article_content">　　选择“创建新的Weblogic域”，选下一步（<strong>下面全部跟着我的操作步骤与界面填选的参数走，所有的用户名啦、密码啦、端口号啦、IP啦，都请根据第一节中的那个表格里的参数填写</strong>）</p>
+<div class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342775177_1957.jpg" alt=""></div>
+<p class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342775206_1170.jpg" alt=""></p>
+<p class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342775224_2874.jpg" alt=""></p>
+<p class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342775255_8069.jpg" alt=""></p>
+<p class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342775294_4654.jpg" alt=""></p>
+<p class="article_content">&nbsp;</p>
+<p class="article_content"><strong>　　下一步后界面类似，但是是有区别的，注意了哦，不要下手太快了</strong></p>
+<div class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342775324_6814.jpg" alt=""></div>
+<p class="article_content">&nbsp;</p>
+<p class="article_content">　　上面这个配的就叫集群广播地址的界面。</p>
+<p class="article_content">　　因为集群是通过广播（有unicast和multicast两种）来同步集群中的节点，并且把每个节点中的session通过这个广播地址来进行复制和同步，即主控域不断的时时刻刻的会和它下面的子节点间保持通讯、经常去询问各个子节点的。</p>
+<ul>
+<li class="article_content">名称：可以任意</li>
+<li class="article_content">集群信息传送模式：有unitcast与multicast两种，在11G版本前都是multicast10G后开始支持unicast协议。如果指定了multicast，就必须指定一个“多点传送地址”，此地址和端口都可以采用weblogic默认的。</li>
+</ul>
+<p class="article_content">　　如果在域环境，还需要在防火墙中配置这个“多点传送地址”与“多点传送端口”，使其在防火墙中被打开，协议为both of tcp and udp。</p>
+<div class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342775435_4821.jpg" alt=""></div>
+<p class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342775438_2351.jpg" alt=""></p>
+<p class="article_content">&nbsp;</p>
+<p class="article_content">　　Look, 右边这块我们把它称为“集群的逻辑拓卜图”。</p>
+<div class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342775504_9118.jpg" alt=""></div>
+<p class="article_content">&nbsp;</p>
+<p class="article_content">　　此处是对每个集群里的节点指定相应的“计算机名/IP”，由于我们的实验是建立在同一台机器上的即纵向集群，<strong><span style="color: red;">因此这步什么都不需要填，直接下一步</span></strong>。</p>
+<div class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342775568_9880.jpg" alt=""></div>
+<p class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342775590_3155.jpg" alt=""></p>
+<p class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342775607_9138.jpg" alt=""></p>
+<p class="article_content">&nbsp;</p>
+<p class="article_content">　　完成后可以启动adminserver</p>
+<div class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342775626_1690.jpg" alt=""></div>
+<p class="article_content">&nbsp;</p>
+<p class="article_content">　　然后通过<a href="http://localhost:7010/console">http://localhost:7001/console</a>来查看我们的集群规划，如下图：</p>
+<p class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342775654_4532.jpg" alt=""></p>
+<p class="article_content">&nbsp;</p>
+<p class="article_content">　　这样，我们就完成了创建一个新的domain并且将且扩展成为了集群的总控制端服务器，同时在这上面我们制作了一个“集群拓卜图”，那么下面要做的就是：</p>
+<ul>
+<li class="article_content">创建该集群拓卜图中的节点1</li>
+<li class="article_content">创建该集群拓卜图中的节点2</li>
+</ul>
+<h2 class="article_content"><a name="t4"></a><a name="_Toc330565160"></a>3.2 创建集群中的节点（mycluster1, mycluster2）</h2>
+<p class="article_content">　　启动Weblogic的Configuration Wizard</p>
+<p class="article_content">　　按照普通的域，<strong>就是一个普通的域</strong>来创建（<strong>为了实验方便我们的用户名与密码全部为weblogic/password_1</strong>）：</p>
+<ul>
+<li class="article_content">user_projects\domains\server1（逻辑名为：mycluster1，端口：7011）</li>
+<li class="article_content">user_projects\domains\server2（逻辑名为：mycluster2，端口：7012）</li>
+</ul>
+<div class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342775677_9504.jpg" alt=""></div>
+<p class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342775694_9371.jpg" alt=""></p>
+<p class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342775715_7168.jpg" alt=""></p>
+<p class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342775743_5191.jpg" alt=""></p>
+<p class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342775765_7466.jpg" alt=""></p>
+<p class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342775813_3864.jpg" alt=""></p>
+<p class="article_content">&nbsp;</p>
+<p class="article_content">　　下一步，下一步，创建，完成。</p>
+<p class="article_content">　　依上面的相同步骤可以自行创建server2(逻辑名为mycluster2，端口:7012)。</p>
+<div class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342775858_8728.jpg" alt=""></div>
+<p class="article_content">&nbsp;</p>
+<h2 class="article_content"><a name="t5"></a><a name="_Toc330565161"></a>3.3 如何启动集群</h2>
+<div class="article_content">
+<table border="1" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td style="background: #4f81bd;" valign="top">
+<p align="center"><strong><span style="color: white;">物理名</span></strong></p>
+</td>
+<td style="background: #4f81bd;" valign="top">
+<p align="center"><strong><span style="color: white;">逻辑名</span></strong></p>
+</td>
+<td style="background: #4f81bd;" valign="top">
+<p align="center"><strong><span style="color: white;">端口号</span></strong></p>
+</td>
+<td style="background: #4f81bd;" valign="top">
+<p align="center"><strong><span style="color: white;">主机名（<span style="color: white;">IP<span style="color: white;">）</span></span></span></strong></p>
+</td>
+<td style="background: #4f81bd;" valign="top">
+<p align="center"><strong><span style="color: white;">登录信息</span></strong></p>
+</td>
+</tr>
+<tr>
+<td valign="top">
+<p><strong>\bea\user_projects\domains\adminserver </strong></p>
+</td>
+<td valign="top">
+<p>AdminServer</p>
+</td>
+<td valign="top">
+<p>7001</p>
+</td>
+<td valign="top">
+<p>localhost</p>
+</td>
+<td valign="top">
+<p>weblogic/password_1</p>
+</td>
+</tr>
+<tr>
+<td valign="top">
+<p><strong>\bea\user_projects\domains\server1</strong></p>
+</td>
+<td valign="top">
+<p>mycluster1</p>
+</td>
+<td valign="top">
+<p>7011</p>
+</td>
+<td valign="top">
+<p>localhost</p>
+</td>
+<td valign="top">
+<p>weblogic/password_1</p>
+</td>
+</tr>
+<tr>
+<td valign="top">
+<p><strong>bea\user_projects\domains\server2</strong></p>
+</td>
+<td valign="top">
+<p>mycluster2</p>
+</td>
+<td valign="top">
+<p>7012</p>
+</td>
+<td valign="top">
+<p>localhost</p>
+</td>
+<td valign="top">
+<p>weblogic/password_1</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="article_content">&nbsp;</p>
+<p class="article_content">　　我们看着上面这个表格来输入命令吧:</p>
+<p class="article_content">　　1.&nbsp;启动主控域（必须永远先启动主控域）</p>
+<div class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342775883_4146.jpg" alt=""></div>
+<p class="article_content">&nbsp;</p>
+<p class="article_content">　　2.&nbsp; 启动节点1（<strong>间点间的启动顺序无所谓</strong>）</p>
+<div class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342775906_5670.jpg" alt=""></div>
+<p class="article_content">&nbsp;</p>
+<p class="article_content">　　3.&nbsp;启动节点2（<strong>间点间的启动顺序无所谓</strong>）</p>
+<div class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342775937_5920.jpg" alt=""></div>
+<p class="article_content">&nbsp;</p>
+<p class="article_content">　　全部启动完毕后就可以通过主控制域的admin console即<a href="http://localhost:7001/console">http://localhost:7001/console</a>来管理这个集群了。</p>
+<div class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342775955_2095.jpg" alt=""></div>
+<p class="article_content">&nbsp;</p>
+<h1 class="article_content"><a name="t6"></a><a name="_Toc330565162"></a>四、jdbc集群</h1>
+<p class="article_content">&nbsp;</p>
+<p class="article_content">　　有了集群，我们就可以布署我们的JDBC了，只是这个JDBC的布署和以前单机版的JDBC布署稍稍有点不一样，前面我们引用第八天中的建立JDBC的步骤：</p>
+<div class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342776018_8901.jpg" alt=""></div>
+<p class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342776047_3386.jpg" alt=""></p>
+<p class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342776071_7518.jpg" alt=""></p>
+<p class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342776108_3045.jpg" alt=""></p>
+<p class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342776131_1816.jpg" alt=""></p>
+<p class="article_content">&nbsp;</p>
+<p class="article_content"><strong>&nbsp;</strong></p>
+<p class="article_content"><strong>　　好好好，停，到了这边，不一样的地方来了。</strong></p>
+<p class="article_content">&nbsp;</p>
+<p class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342776179_5546.jpg" alt=""></p>
+<p class="article_content">　　嘿嘿，千万不要把这个JDBC连接池的“target”即作用域设错了哈，我们现在是集群，要把这个JDBC连接池的作用域设在我们的集群上的哈！</p>
+<div class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342776258_4949.jpg" alt=""></div>
+<p class="article_content">&nbsp;</p>
+<p class="article_content"><strong>　　我们来测试一下我们建立的数据源吧。</strong></p>
+<div class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342776283_9139.jpg" alt=""></div>
+<p class="article_content">&nbsp;</p>
+<p class="article_content">　　两个cluster上的数据源全部部署成功。</p>
+<p class="article_content"><strong>　　这边再提一句：</strong></p>
+<p class="article_content"><em><span style="color: red;">　　集群布署的话<span style="color: red;">AdminServer<span style="color: red;">只是一个控制器，通过它布署的<span style="color: red;">war<span style="color: red;">程序是自动同步到挂在它下面的所有的节点中去的，因此<span style="color: red;">JDBC<span style="color: red;">数据源，或者<span style="color: red;">JMS<span style="color: red;">或者是<span style="color: red;">EJB<span style="color: red;">都要在绑定是把<span style="color: red;">target<span style="color: red;">即作用域设成<span style="color: red;">cluster<span style="color: red;">而不是<span style="color: red;">AdminServer<span style="color: red;">本身，因为<span style="color: red;">AdminServer<span style="color: red;">本身不会布署任何任何东西的。</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></em></p>
+<h1 class="article_content">五、把工程布署到集群环境中去</h1>
+<ul>
+<li class="article_content">确保我们将要布署的工程中的web.xml的最后一行含有：</li>
+</ul>
+<div class="article_content">
+<table style="background: #d9d9d9;" border="1" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td valign="top">
+<p>&lt;distributable/&gt;</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li class="article_content">&nbsp;在将要布署的工程的WEB-INF目录下新建一个weblogic.xml的文件，其内容如下：</li>
+</ul>
+<div class="article_content">
+<table style="background: #d9d9d9;" border="1" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td valign="top">
+<p>&lt;?xml version="1.0" encoding="UTF-8"?&gt;</p>
+<p>&lt;weblogic-web-app xmlns="http://www.bea.com/ns/weblogic/90"&gt;</p>
+<p>&lt;session-descriptor&gt;</p>
+<p>&lt;debug-enabled&gt;true&lt;/debug-enabled&gt;</p>
+<p>&lt;persistent-store-type&gt;replicated&lt;/persistent-store-type&gt;</p>
+<p>&lt;sharing-enabled&gt;true&lt;/sharing-enabled&gt;</p>
+<p>&lt;/session-descriptor&gt;</p>
+<p>&lt;context-root&gt;/cbbs&lt;/context-root&gt;</p>
+<p>&lt;/weblogic-web-app&gt;</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="article_content">　　该内容使得你的工程可以在Weblogic集群环境下进行Session复制。</p>
+<p class="article_content">然后就可以开始布署了</p>
+<div class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342776308_4784.jpg" alt=""></div>
+<p class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342776325_7011.jpg" alt=""></p>
+<p class="article_content">&nbsp;</p>
+<p class="article_content">　　下面又来了，和在集群中布署JDBC是一样的，请看：</p>
+<div class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342776351_3635.jpg" alt=""></div>
+<p class="article_content">&nbsp;</p>
+<p class="article_content">　　下一步，下一步一直到[完成]按钮亮起来后，点[完成]。</p>
+<div class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342776376_8216.jpg" alt=""></div>
+<p class="article_content">&nbsp;</p>
+<p class="article_content">　　点[保存]并[激活更改]。</p>
+<p class="article_content"><strong><span style="color: red;">　　大家来看看两个<span style="color: red;">cluster<span style="color: red;">即<span style="color: red;">mycluster1<span style="color: red;">与<span style="color: red;">mycluster2<span style="color: red;">下是否被布署了工程，即相当于我们手工要在两个<span style="color: red;">tomcat<span style="color: red;">节点的<span style="color: red;">webapps<span style="color: red;">目录里拷入我们的<span style="color: red;">WAR<span style="color: red;">工程，而<span style="color: red;">weblogic<span style="color: red;">只需要通过主控制域，自动将<span style="color: red;">war<span style="color: red;">工程布署在其下的所有子节点内。</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></strong></p>
+<div class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342776405_5508.jpg" alt=""></div>
+<p class="article_content">&nbsp;</p>
+<p class="article_content">　　是的，果然，它自动布署了。就算我下面有10几个子节点，它也一样只需要在AdminServer上布署一次，自动同步。</p>
+<p class="article_content">　　我们把这个工程启动起来吧。</p>
+<div class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342776431_4933.jpg" alt=""></div>
+<p class="article_content">&nbsp;</p>
+<p class="article_content">　　当你一点“为所有请求提供服务，再来看两个字节点的后台console，都可以同步启动了：</p>
+<div class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342776453_8674.jpg" alt=""></div>
+<p class="article_content">&nbsp;</p>
+<p class="article_content">　　布署成功</p>
+<div class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342776471_2205.jpg" alt=""></div>
+<p class="article_content">&nbsp;</p>
+<p class="article_content">　　打开两个IE：</p>
+<p class="article_content">　　一个输入: <a href="http://localhost:7011/cbbs">http://localhost:7011/cbbs</a></p>
+<p class="article_content">　　一个输入: <a href="http://localhost:7012/cbbs">http://localhost:7012/cbbs</a></p>
+<div class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342776493_2735.jpg" alt=""></div>
+<p class="article_content">&nbsp;</p>
+<p class="article_content">　　Weblogic集群布署成功，接下去就是在Apache里进行派发了</p>
+<h1 class="article_content">六、使用Apache与Weblogic集群整合</h1>
+<p class="article_content">　　打开httpd.conf，把下面这段就是我们在“第九天”中加入的，去掉：</p>
+<div class="article_content">
+<table style="background: #d9d9d9;" border="1" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td valign="top">
+<p>LoadModule weblogic_module modules/mod_wl_22.so</p>
+<p>&lt;IfModule mod_weblogic.c&gt;</p>
+<p>&nbsp;&nbsp; WebLogicHost localhost</p>
+<p>&nbsp;&nbsp; WebLogicPort 7001</p>
+<p>&nbsp;&nbsp; MatchExpression /cbbs/WEB-INF</p>
+<p>&nbsp;&nbsp; MatchExpression /cbbs/*WEB-INF</p>
+<p>&nbsp;&nbsp; MatchExpression /cbbs/*.action</p>
+<p>&nbsp;&nbsp; MatchExpression /cbbs/servlet/*</p>
+<p>&nbsp;&nbsp; MatchExpression /cbbs/*.jsp</p>
+<p>&nbsp;&nbsp; MatchExpression /cbbs/*fckeditor/editor/filemanager/connectors/*.*</p>
+<p>&nbsp;&nbsp; MatchExpression /cbbs/fckeditor/editor/filemanager/connectors/*</p>
+<p>&nbsp;&nbsp; WLLogFile logs/wlproxy.log</p>
+<p>&lt;/IfModule&gt;</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="article_content">　　换成下面这一段</p>
+<div class="article_content">
+<table style="background: #d9d9d9;" border="1" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td valign="top">
+<p>LoadModule weblogic_module modules/mod_wl_22.so</p>
+<p>&lt;IfModule mod_weblogic.c&gt;</p>
+<p>&nbsp;&nbsp; Include conf/weblogic.conf</p>
+<p>&lt;/IfModule&gt;</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="article_content">　　然后在apache安装的conf目录下手工建立weblogic.conf文件，其内容如下：</p>
+<div class="article_content">
+<table style="background: #d9d9d9;" border="1" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td valign="top">
+<p>WeblogicCluster localhost:7011,localhost:7012</p>
+<p>&nbsp;&nbsp;</p>
+<p>MatchExpression /cbbs/WEB-INF</p>
+<p>MatchExpression /cbbs/*WEB-INF</p>
+<p>MatchExpression /cbbs/*.action</p>
+<p>MatchExpression /cbbs/servlet/*</p>
+<p>MatchExpression /cbbs/*.jsp</p>
+<p>MatchExpression /cbbs/*fckeditor/editor/filemanager/connectors/*.*</p>
+<p>MatchExpression /cbbs/fckeditor/editor/filemanager/connectors/*</p>
+<p>&nbsp;</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="article_content">　　重启你的Apache，输入：<a href="http://localhost/cbbs/index.jsp">http://localhost/cbbs/index.jsp</a></p>
+<div class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342776526_1462.jpg" alt=""></div>
+<p class="article_content">&nbsp;</p>
+<p class="article_content">　　Apache加Weblogic集群，搞定！</p>
+<h1 class="article_content">七、JMS集群</h1>
+<p class="article_content">　　这是我在用Weblogic集群布署PEGA Rulz的详细步骤，供各为参考。因为网上关于JMS在Weblogic下如何作集群不是太多，因此把步骤记录下来Share给大家。</p>
+<p class="article_content">　　JMS集群和JDBC集群不一样，<strong><span style="color: red;">就是不能够直接建立<span style="color: red;">JMS<span style="color: red;">源，然后把它<span style="color: red;">target<span style="color: red;">到我们的<span style="color: red;">myclusterbroadcast<span style="color: red;">上去</span></span></span></span></span></span></span></strong>。</p>
+<ul>
+<li class="article_content">而是需要分别为每个cluster单独建一个jms的server如下图。</li>
+</ul>
+<div class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342776582_6200.jpg" alt=""></div>
+<p class="article_content">&nbsp;</p>
+<ul>
+<li class="article_content">然后建立jmsmodule</li>
+</ul>
+<div class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342776621_4337.jpg" alt=""></div>
+<p class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342776642_5902.jpg" alt=""></p>
+<p class="article_content">&nbsp;</p>
+<p class="article_content">　　将module 的作用范围即target到我们的cluster（myclusterbroadcast）上去。</p>
+<p class="article_content">　　建立完了module你就要建立topic, queue以及相应的topic connection factory或者是queue connectionfactory了是吧？因为我们这边给PEGA Rulz做集群用的是topic方式来发布集群的，因此我们以topic为例，queue的建立也就一样了。</p>
+<ul>
+<li class="article_content">单击刚才我们建立的KTJmsModule</li>
+</ul>
+<div class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342776673_7562.jpg" alt=""></div>
+<p class="article_content">&nbsp;</p>
+<p class="article_content">　　点[New]</p>
+<p class="article_content">　　先建connection factory</p>
+<div class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342776697_3161.jpg" alt=""></div>
+<p class="article_content">&nbsp;</p>
+<ul>
+<li class="article_content">在新建connectionfactory的界面中有一个[高级定位]的按钮</li>
+</ul>
+<div class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342776727_6733.jpg" alt=""></div>
+<p class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342776747_4715.jpg" alt=""></p>
+<p class="article_content">&nbsp;</p>
+<ul>
+<li class="article_content">点[新建子部署]</li>
+</ul>
+<p class="article_content">　　　　填入完子布署的名称后，按照如下图来“target”</p>
+<div class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342776772_6970.jpg" alt=""></div>
+<p class="article_content">&nbsp;</p>
+<p class="article_content">　　点完成后跳出如下的界面</p>
+<div class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342776797_1757.jpg" alt=""></div>
+<p class="article_content">&nbsp;</p>
+<p class="article_content">　　此时我们可以开始真正建立我们的topic或者是queue了</p>
+<p class="article_content">　　前面说了<strong><span style="color: red;">不能够直接建立<span style="color: red;">JMS<span style="color: red;">源，然后把它<span style="color: red;">target<span style="color: red;">到我们的<span style="color: red;">myclusterbroadcast<span style="color: red;">上去</span></span></span></span></span></span></span></strong>。那么我们要对JMS进行集群即对Topic或者是Queue进行集群，但是我们可以建立一个Distribute Topic，然后分别建两个一边的topic，一个topic连向jmsserver1一个topic连向jmsserver2，然后把这个Distribute Topic定位（Target）到这两条topic上即是我们的“集群下的jms topic”。</p>
+<p class="article_content">在jmd module里点[新建]按钮</p>
+<p class="article_content">选择“主题”（不是分布式主题）</p>
+<div class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342776829_6194.jpg" alt=""></div>
+<p class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342776851_1314.jpg" alt=""></p>
+<p class="article_content">&nbsp;</p>
+<p class="article_content"><strong>　　每个子部署（sub deployment）需要定位（target）到一个jms server上。</strong></p>
+<p class="article_content"><strong>依此分别建立:</strong></p>
+<ul>
+<li class="article_content">topic1 subtop1-&gt;jmsserver1</li>
+<li class="article_content">topic2 subtop2-&gt;jmsserver2</li>
+</ul>
+<p class="article_content">　　现在，我们的jms module里的内容因该如下图所示：</p>
+<div class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342776874_9212.jpg" alt=""></div>
+<p class="article_content">&nbsp;</p>
+<ul>
+<li class="article_content">建立 “分布式主题”（DistributeTopic）</li>
+</ul>
+<p class="article_content">　　在jms module里点新建按钮，选“分布式主题”</p>
+<div class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342776918_4765.jpg" alt=""></div>
+<p class="article_content">&nbsp;</p>
+<p class="article_content">　　一定要记得把“Destination Type”改成“Weighted”。</p>
+<p class="article_content">　　这边的分布式Topic的JNDI Name: 就是我们真正的需要用来做集群的JMS的Topic或者是Queue的jndi名，比如说我的产品PEGA Rulz需要在集群环境下用到RamTopicJNDI，这个JNDI Name就必须填产品说明书上的那个Topic或者是Queue的名字哦。</p>
+<p class="article_content">点下一步后将刚才两个新建的topic全部分配给这个distribute topic</p>
+<div class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342776946_1912.jpg" alt=""></div>
+<p class="article_content">&nbsp;</p>
+<p class="article_content">　　点[完成]按钮</p>
+<p class="article_content">　　这样，一个集群环境下的JMS分布式主题(Topic)就全建完了，最后不要忘了点左边菜单上方的“激活更改”，保存您刚才的所有的更改。</p>
+<div class="article_content"><img style="display: block; margin-left: auto; margin-right: auto;" src="./weblogic的集群与配置_files/1342776966_9979.jpg" alt=""></div></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/HondaHsu/category/645000.html" target="_blank">中间件</a></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(4267972,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;3b703d0b-63cf-dd11-9e4d-001cf0cd104b&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./weblogic的集群与配置_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./weblogic的集群与配置_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/HondaHsu/" target="_blank"><img src="./weblogic的集群与配置_files/20150215155135.png" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/HondaHsu/">xuzhengzhu</a><br>
+            <a href="http://home.cnblogs.com/u/HondaHsu/followees">关注 - 4</a><br>
+            <a href="http://home.cnblogs.com/u/HondaHsu/followers">粉丝 - 178</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;3b703d0b-63cf-dd11-9e4d-001cf0cd104b&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(4267972,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">5</span>
+    </div>
+    <div class="buryit" onclick="votePost(4267972,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/HondaHsu/p/4267828.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/HondaHsu/p/4267828.html" title="发布于2015-02-02 14:57">大数据架构和模式（五）对大数据问题应用解决方案模式并选择实现它的产品</a><br><a href="http://www.cnblogs.com/HondaHsu/p/4269243.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/HondaHsu/p/4269243.html" title="发布于2015-02-03 09:52">SQL性能调优基础教材</a><br></div>
+</div>
+
+</div>
+	</div></div><a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<h3>Feedback</h3>
+	
+			<div class="post">
+				<div class="posthead">
+					<h2>
+						<a href="http://www.cnblogs.com/HondaHsu/p/4267972.html#3169188" class="layer">#1楼</a><a name="3169188" id="comment_anchor_3169188"></a>
+						&nbsp;&nbsp;<span class="comment_actions"></span>
+					</h2>
+					 <span class="comment_date">2015-04-23 16:53</span> by <a id="a_comment_author_3169188" href="http://www.cnblogs.com/live365wang/" target="_blank">Pale Life</a> <a href="http://msg.cnblogs.com/send/Pale%20Life" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+				</div>
+				<div class="postbody"><div id="comment_body_3169188" class="blog_comment_body">好文章要顶，学习了，谢谢，已收藏。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3169188,&#39;Digg&#39;,this)">支持(1)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3169188,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3169188_avatar" style="display:none;">http://pic.cnblogs.com/face/u285507.jpg?id=09170213</span></div>
+			</div>
+		
+			<div class="post">
+				<div class="posthead">
+					<h2>
+						<a href="http://www.cnblogs.com/HondaHsu/p/4267972.html#3295589" class="layer">#2楼</a><a name="3295589" id="comment_anchor_3295589"></a>
+						&nbsp;&nbsp;<span class="comment_actions"></span>
+					</h2>
+					 <span class="comment_date">2015-10-30 17:29</span> by <a id="a_comment_author_3295589" href="http://www.cnblogs.com/Love-LLing/" target="_blank">小洪</a> <a href="http://msg.cnblogs.com/send/%E5%B0%8F%E6%B4%AA" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+				</div>
+				<div class="postbody"><div id="comment_body_3295589" class="blog_comment_body">你好！我今天在Win7 64位下，搭建weblogic 11gR1+Apache 2.1.19 集群，配置 LoadModule weblogic_module modules/mod_wl_22.so，启动Apache报错，<br>D:\httpd-2.2\bin&gt;httpd.exe -k start<br>httpd.exe: Syntax error on line 131 of D:/httpd-2.2/conf/httpd.conf: Cannot load<br> D:/httpd-2.2/modules/mod_wl_22.so into server: %1 \xb2\xbb\xca\xc7\xd3\xd0\xd0\<br>xa7\xb5\xc4 Win32 \xd3\xa6\xd3\xc3\xb3\xcc\xd0\xf2\xa1\xa3<br><br>换了几个.so文件，都没有用，请问哪里没配置好吗？</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3295589,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3295589,&#39;Bury&#39;,this)">反对(0)</a></div></div>
+			</div>
+		
+			<div class="post">
+				<div class="posthead">
+					<h2>
+						<a href="http://www.cnblogs.com/HondaHsu/p/4267972.html#3351108" class="layer">#3楼</a><a name="3351108" id="comment_anchor_3351108"></a>
+						&nbsp;&nbsp;<span class="comment_actions"></span>
+					</h2>
+					 <span class="comment_date">2016-01-20 15:35</span> by <a id="a_comment_author_3351108" href="http://www.cnblogs.com/dava/" target="_blank">塞北夜莺</a> <a href="http://msg.cnblogs.com/send/%E5%A1%9E%E5%8C%97%E5%A4%9C%E8%8E%BA" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+				</div>
+				<div class="postbody"><div id="comment_body_3351108" class="blog_comment_body">mark</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3351108,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3351108,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3351108_avatar" style="display:none;">http://pic.cnblogs.com/face/625305/20140427174256.png</span></div>
+			</div>
+		
+			<div class="post">
+				<div class="posthead">
+					<h2>
+						<a href="http://www.cnblogs.com/HondaHsu/p/4267972.html#3490073" class="layer">#4楼</a><a name="3490073" id="comment_anchor_3490073"></a>
+						&nbsp;&nbsp;<span class="comment_actions"></span>
+					</h2>
+					 <span class="comment_date">2016-08-16 10:14</span> by <a id="a_comment_author_3490073" href="http://www.cnblogs.com/feng666/" target="_blank">hui12345</a> <a href="http://msg.cnblogs.com/send/hui12345" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+				</div>
+				<div class="postbody"><div id="comment_body_3490073" class="blog_comment_body">非常好  非常受帮助</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3490073,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3490073,&#39;Bury&#39;,this)">反对(0)</a></div></div>
+			</div>
+		
+			<div class="post">
+				<div class="posthead">
+					<h2>
+						<a href="http://www.cnblogs.com/HondaHsu/p/4267972.html#3598396" class="layer">#5楼</a><a name="3598396" id="comment_anchor_3598396"></a><span id="comment-maxId" style="display:none;">3598396</span><span id="comment-maxDate" style="display:none;">2017/1/7 10:20:16</span>
+						&nbsp;&nbsp;<span class="comment_actions"></span>
+					</h2>
+					 <span class="comment_date">2017-01-07 10:20</span> by <a id="a_comment_author_3598396" href="http://www.cnblogs.com/diyunpeng/" target="_blank">规格严格-功夫到家</a> <a href="http://msg.cnblogs.com/send/%E8%A7%84%E6%A0%BC%E4%B8%A5%E6%A0%BC-%E5%8A%9F%E5%A4%AB%E5%88%B0%E5%AE%B6" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+				</div>
+				<div class="postbody"><div id="comment_body_3598396" class="blog_comment_body">学习了！！</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3598396,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3598396,&#39;Bury&#39;,this)">反对(0)</a></div></div>
+			</div>
+		<div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/HondaHsu/p/4267972.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/HondaHsu/p/4267972.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="http://cn.udacity.com/android/?utm_source=cnblogs&amp;utm_medium=referral&amp;utm_campaign=AND02" target="_blank">【推荐】Google+滴滴联手打造Android开发工程师课程</a><br><a href="http://cloud.qy.com.cn/68?a=cnblog" target="_blank">【推荐】群英云服务器性价王，2核4G5M BGP带宽 68元首月！</a><br><a href="http://web.tanzhouedu.com/index/keCourse.html" target="_blank">【粉丝福利】Web前端基础到高级在线直播教学</a><br><a href="http://click.aliyun.com/m/17714/" target="_blank">【福利】阿里云免费套餐升级，更多产品，更久时长</a><br></div>
+<div id="opt_under_post"></div>
+<div id="cnblogs_c1" class="c_ad_block"><a href="http://www.grapecity.com.cn/enterprise-solutions/huozige/?utm_source=cnblogs&amp;utm_medium=blogpage&amp;utm_term=bottom&amp;utm_content=huozige&amp;utm_campaign=community" target="_blank"><img width="300" height="250" src="./weblogic的集群与配置_files/24442-20170418140643727-710809625.png" alt="Huozige"></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/567546/" target="_blank">芯片订单暗示iPhone下半年销量将超过1亿部</a><br> ·  <a href="http://news.cnblogs.com/n/567545/" target="_blank">美团点评发布旅行品牌“美团旅行” 主打年轻旅行者市场</a><br> ·  <a href="http://news.cnblogs.com/n/567544/" target="_blank">这家“专利流氓”击败了华为 苹果也不得不屈服</a><br> ·  <a href="http://news.cnblogs.com/n/567543/" target="_blank">Facebook建造“上网直升机”：紧急情况下的空中基站</a><br> ·  <a href="http://news.cnblogs.com/n/567542/" target="_blank">重磅报告|中国互联网+指数2017发布，附351城市排名查询</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="cnblogs_c2" class="c_ad_block"><a href="http://click.aliyun.com/m/15483/" target="_blank"><img width="468" height="60" src="./weblogic的集群与配置_files/24442-20170331150421570-489464769.jpg" alt="阿里云C2"></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/565901/" target="_blank">唱吧DevOps的落地，微服务CI/CD的范本技术解读</a><br> ·  <a href="http://kb.cnblogs.com/page/566523/" target="_blank">程序员，如何从平庸走向理想？</a><br> ·  <a href="http://kb.cnblogs.com/page/566318/" target="_blank">我为什么鼓励工程师写blog</a><br> ·  <a href="http://kb.cnblogs.com/page/566528/" target="_blank">怎么轻松学习JavaScript</a><br> ·  <a href="http://kb.cnblogs.com/page/509431/" target="_blank">如何打好前端游击战</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" class="FooterCell">
+			
+<p id="footer">
+	Powered by: 
+	<br>
+	
+	<a id="Footer1_Hyperlink3" name="Hyperlink1" href="http://www.cnblogs.com/" style="font-family:Verdana;font-size:12px;">博客园</a>
+	<br>
+	Copyright © xuzhengzhu
+</p>
+
+		</td>
+	</tr>
+</tbody></table>
+
+
+
+</body></html>

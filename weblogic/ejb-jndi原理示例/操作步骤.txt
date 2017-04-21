@@ -9,3 +9,6 @@
 7）weblogic-ejb-jar.xml该文件中的jndiname标签的名字控制了weblogic中jndi树结构中的名字；
    <jndi-name>hellojndi.jndi_hello_name</jndi-name>该标签中“.”的作用可以控制weblogic中的jndi树目录结构
 8）测试类中引用的就是该jndi的全名，如：HelloWorld h = (HelloWorld)ic.lookup("hellojndi.jndi_hello_name");
+9）另外一种jndi命名不通过xml配置，则是在接口实现上加注释，生成的jndi名称格式为“命名空间#全类名”，如下：
+@Stateless(mappedName = "HelloWorldBean")  
+@Remote ({HelloWorld.class}) 

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Demo</title>
+<link href="demo/css/validform.css" type="text/css" rel="stylesheet" />
+</head>
+<div>
+        <form id="form1" class="registerform" method="post" action="">
+            <table width="100%" style="table-layout:fixed;">
+                <tr>
+                    <td class="need" style="width:10px;">*</td>
+                    <td style="width:70px;">昵称：</td>
+                    <td style="width:280px;">
+					<input type="text" value="" name="name" class="inputxt" datatype="s6-18" nullmsg="请输入您的昵称！"/></td>
+                    <td><div class="Validform_checktip"></div></td>
+                </tr>
+                <tr>
+                    <td class="need" style="width:10px;">*</td>
+                    <td style="width:70px;">密码：</td>
+                    <td style="width:210px;">
+                        <input type="password" value="" name="password" class="inputxt" plugin="passwordStrength"  datatype="*6-18" nullmsg="请输入密码！"/>
+                    </td>
+                    <td><div class="Validform_checktip"></div></td>
+                </tr>
+                
+                <tr>
+                    <td class="need">*</td>
+                    <td>移动电话：</td>
+                    <td><input type="text" value="" name="tel" class="inputxt" datatype="m"/></td>
+                    
+                </tr>
+                <tr>
+                    <td class="need">*</td>
+                    <td>所在城市：</td>
+                    <td><select name="province" datatype="*" style="width:266px;"><option value="">请选择城市</option><option value="1">瑞金市</option></select></td>
+                   
+                </tr>
+                <tr>
+                    <td class="need">*</td>
+                    <td>性别：</td>
+                    <td><input type="radio" value="1" name="gender" id="male" class="pr1" datatype="*"/><label for="male">男</label> <input type="radio" value="2" name="gender" id="female" class="pr1" /><label for="female">女</label></td>
+                    
+                </tr>
+                <tr>
+                    <td class="need">*</td>
+                    <td>购物网：</td>
+                    <td>
+                        <input name="shoppingsite2" class="rt2" id="shoppingsite21" type="checkbox"  value="1" datatype="*"/><label for="shoppingsite21">新蛋</label>
+                        <input name="shoppingsite2" class="rt2" id="shoppingsite22" type="checkbox"  value="2" /><label for="shoppingsite22">淘宝</label>
+                        <input name="shoppingsite2" class="rt2" id="shoppingsite23" type="checkbox"  value="3" /><label for="shoppingsite23">京东</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="need"></td>
+                    <td>备注：</td>
+                    <td colspan="2">
+                        <textarea tip="请在这里输入您的意见。" altercss="gray" class="gray" name="msg" value="">请在这里输入您的意见。</textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="need"></td>
+                    <td></td>
+                    <td colspan="2" style="padding:10px 0 18px 0;">
+                        <input type="submit" value="提 交" /> <input type="reset" value="重 置" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+</div>
+<script type="text/javascript" src="demo/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="demo/js/Validform_v5.3.2.js"></script>
+
+<script type="text/javascript">
+$(function(){
+	$("#form1").Validform({
+		//tipSweep:true, //在按钮提交时，进行验证
+		tiptype:2
+	});
+	
+	
+})
+</script>
+</body>
+</html>

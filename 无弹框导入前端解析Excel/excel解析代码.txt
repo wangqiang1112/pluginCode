@@ -1,0 +1,448 @@
+Excel解析后导入时的弹框控制：
+HTML：
+<div id="idfile"><input type="file" id="file" style="display: none"/></div>
+js：
+onDR: function(){
+            var upfile = document.getElementById("file");
+
+            var idfile = document.getElementById("idfile");
+            upfile.onchange = function(){
+		//删除旧的input元素，重新创建新的input
+                idfile.removeChild(upfile);
+                var fileEle = document.createElement("input");
+                fileEle.setAttribute("type","file");
+                fileEle.setAttribute("id","file");
+                fileEle.style.display = "none";
+                idfile.appendChild(fileEle);
+                if (confirm("是否要覆盖原数据？")){
+                    // alert("是"+upfile.value);
+                    curSeg.onJXExcel(upfile.value,[]);//解析Excel中的数据
+                }else{
+                    // alert("否"+upfile.value);
+                    var pre_Zb_list = excJsonObj.data.BODY2;
+                    curSeg.onJXExcel(upfile.value,pre_Zb_list);
+                }
+            }
+            upfile.click();
+
+        }
+1、绑定onclick，在upfile.click()模拟点击时会出现两次弹出文件选择框，故选用onchange事件；
+2、绑定onchange事件后，页面无刷新情况下文件名称不变的话导入操作无效；
+3、input的type类型为file时，value属性用setAttribute等方法不能修改，只能用插件（没做）或者删除原input元素重新生成一次新的input（如上代码）。
+--------------------------------------------------------------------------------------------
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">  
+<html>  
+ <head>  
+  <title> New Document </title>  
+  <meta name="Generator" content="EditPlus">  
+  <meta name="Author" content="">  
+  <meta name="Keywords" content="">  
+  <meta name="Description" content="">  
+  <script type="text/javascript">  
+        function ReadExcel() {  
+           var tempStr = "";  
+           //得到文件路径的值  
+           var filePath = document.getElementById("upfile").value;  
+           //创建操作EXCEL应用程序的实例  
+           var oXL = new ActiveXObject("Excel.application");  
+            //打开指定路径的excel文件  
+           var oWB = oXL.Workbooks.open(filePath);  
+           //操作第一个sheet(从一开始，而非零)  
+           oWB.worksheets(1).select();  
+           var oSheet = oWB.ActiveSheet;  
+           //使用的行数  
+         var rows =  oSheet .usedrange.rows.count;   
+           try {  
+              for (var i = 2; i <= rows; i++) {  
+                 if (oSheet.Cells(i, 2).value == "null" || oSheet.Cells(i, 3).value == "null") break;  
+                 var a = oSheet.Cells(i, 2).value.toString() == "undefined" ? "": oSheet.Cells(i, 2).value;  
+                 tempStr += (" " + oSheet.Cells(i, 2).value + " " + oSheet.Cells(i, 3).value + " " + oSheet.Cells(i, 4).value + " " + oSheet.Cells(i, 5).value + " " + oSheet.Cells(i, 6).value + "\n");  
+              }  
+           } catch(e) {  
+              document.getElementById("txtArea").value = tempStr;  
+           }  
+           document.getElementById("txtArea").value = tempStr;  
+           //退出操作excel的实例对象  
+           oXL.Application.Quit();  
+            //手动调用垃圾收集器  
+           CollectGarbage();  
+        }  
+  </script>  
+ </head>  
+  
+ <body>  
+  <input type="file" id="upfile" /><input type="button" onclick="ReadExcel();" value="read">  
+<br>  
+<textarea id="txtArea" cols=50 rows=10></textarea>  
+ </body>  
+</html>  
+
+----------------------------------------
+/** 
+ * 操作Excel表格的功能类 
+ */  
+public class ExcelReader {  
+    private POIFSFileSystem fs;  
+    private HSSFWorkbook wb;  
+    private HSSFSheet sheet;  
+    private HSSFRow row;  
+      
+    /** 
+     * 读取Excel数据内容 
+     * @param url Excel表格的路径 
+     * @return List<Map<Integer, String>> 包含单元格数据内容的List对象 
+     * @throws FileNotFoundException  
+     */  
+    public List<Map<Integer, String>> readExcelContent(String url) throws FileNotFoundException {  
+        List<Map<Integer,String>> contentList=new ArrayList<Map<Integer,String>>();  
+        InputStream is=new FileInputStream(url);  
+        String str = "";  
+        try {  
+            fs = new POIFSFileSystem(is);  
+            wb = new HSSFWorkbook(fs);  
+        } catch (IOException e) {  
+            e.printStackTrace();  
+        }  
+        sheet = wb.getSheetAt(0);  
+        // 得到总行数  
+        int rowNum = sheet.getLastRowNum();  
+        row = sheet.getRow(0);  
+        int colNum = row.getPhysicalNumberOfCells();  
+        // 正文内容应该从第二行开始,第一行为表头的标题  
+        for (int i = 0; i <= rowNum; i++) {  
+            Map<Integer, String> content = new HashMap<Integer, String>();  
+            row = sheet.getRow(i);  
+            int j = 0;  
+            while (j < colNum) {  
+                str = getCellFormatValue(row.getCell((short) j)).trim();  
+                //Excel每一行放到Map中  
+                content.put(j, str);  
+                j++;  
+            }  
+            //放到List集合  
+            contentList.add(content);  
+        }  
+        return contentList;  
+    }  
+  
+    /** 
+     * 读取Excel表格表头的内容 
+     * @param InputStream 
+     * @return String 表头内容的数组 
+     */  
+    public String[] readExcelTitle(InputStream is) {  
+        try {  
+            fs = new POIFSFileSystem(is);  
+            wb = new HSSFWorkbook(fs);  
+        } catch (IOException e) {  
+            e.printStackTrace();  
+        }  
+        sheet = wb.getSheetAt(0);  
+        row = sheet.getRow(0);  
+        // 标题总列数  
+        int colNum = row.getPhysicalNumberOfCells();  
+        System.out.println("colNum:" + colNum);  
+        String[] title = new String[colNum];  
+        for (int i = 0; i < colNum; i++) {  
+            //title[i] = getStringCellValue(row.getCell((short) i));  
+            title[i] = getCellFormatValue(row.getCell((short) i));  
+        }  
+        return title;  
+    }  
+  
+    /** 
+     * 获取单元格数据内容为字符串类型的数据 
+     *  
+     * @param cell Excel单元格 
+     * @return String 单元格数据内容 
+     */  
+    private String getStringCellValue(HSSFCell cell) {  
+        String strCell = "";  
+        switch (cell.getCellType()) {  
+        case HSSFCell.CELL_TYPE_STRING:  
+            strCell = cell.getStringCellValue();  
+            break;  
+        case HSSFCell.CELL_TYPE_NUMERIC:  
+            strCell = String.valueOf(cell.getNumericCellValue());  
+            break;  
+        case HSSFCell.CELL_TYPE_BOOLEAN:  
+            strCell = String.valueOf(cell.getBooleanCellValue());  
+            break;  
+        case HSSFCell.CELL_TYPE_BLANK:  
+            strCell = "";  
+            break;  
+        default:  
+            strCell = "";  
+            break;  
+        }  
+        if (strCell.equals("") || strCell == null) {  
+            return "";  
+        }  
+        if (cell == null){  
+            return "";  
+        }  
+        return strCell;  
+    }  
+  
+    /** 
+     * 获取单元格数据内容为日期类型的数据 
+     *  
+     * @param cell 
+     *            Excel单元格 
+     * @return String 单元格数据内容 
+     */  
+    private String getDateCellValue(HSSFCell cell) {  
+        String result = "";  
+        try {  
+            int cellType = cell.getCellType();  
+            if (cellType == HSSFCell.CELL_TYPE_NUMERIC) {  
+                Date date = cell.getDateCellValue();  
+                result = (date.getYear() + 1900) + "-" + (date.getMonth() + 1)  
+                        + "-" + date.getDate();  
+            } else if (cellType == HSSFCell.CELL_TYPE_STRING) {  
+                String date = getStringCellValue(cell);  
+                result = date.replaceAll("[年月]", "-").replace("日", "").trim();  
+            } else if (cellType == HSSFCell.CELL_TYPE_BLANK) {  
+                result = "";  
+            }  
+        } catch (Exception e) {  
+            System.out.println("日期格式不正确!");  
+            e.printStackTrace();  
+        }  
+        return result;  
+    }  
+  
+    /** 
+     * 根据HSSFCell类型设置数据 
+     * @param cell 
+     * @return 
+     */  
+    private String getCellFormatValue(HSSFCell cell) {  
+        String cellvalue = "";  
+        if (cell != null) {  
+            // 判断当前Cell的Type  
+            switch (cell.getCellType()) {  
+            // 如果当前Cell的Type为NUMERIC  
+            case HSSFCell.CELL_TYPE_NUMERIC:  
+            case HSSFCell.CELL_TYPE_FORMULA: {  
+                // 判断当前的cell是否为Date  
+                if (HSSFDateUtil.isCellDateFormatted(cell)) {  
+                    // 如果是Date类型则，转化为Data格式  
+                      
+                    //方法1：这样子的data格式是带时分秒的：2011-10-12 0:00:00  
+                    //cellvalue = cell.getDateCellValue().toLocaleString();  
+                    //方法2：这样子的data格式是不带带时分秒的：2011-10-12  
+                    Date date = cell.getDateCellValue();  
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");  
+                    cellvalue = sdf.format(date);  
+                }  
+                // 如果是纯数字  
+                else {  
+                    // 取得当前Cell的数值  
+                    cellvalue = String.valueOf(cell.getNumericCellValue());  
+                }  
+                break;  
+            }  
+            // 如果当前Cell的Type为STRIN  
+            case HSSFCell.CELL_TYPE_STRING:  
+                // 取得当前的Cell字符串  
+                cellvalue = cell.getRichStringCellValue().getString();  
+                break;  
+            // 默认的Cell值  
+            default:  
+                cellvalue = " ";  
+            }  
+        } else {  
+            cellvalue = "";  
+        }  
+        return cellvalue;  
+    }  
+}  
+
+这里丢出Main测试方法：
+[java] view plain copy 在CODE上查看代码片派生到我的代码片
+public class Test {  
+    public static void main(String[] args) {  
+        try {  
+            String url="jdbc:oracle:thin:@localhost:1521:orcl";   
+            Class.forName("oracle.jdbc.driver.OracleDriver");  
+            Connection conn=DriverManager.getConnection(url,"system","system");  
+            //关闭事务的自动提交  
+            conn.setAutoCommit(false);  
+            ExcelReader excelReader = new ExcelReader();  
+            List<Map<Integer, String>> contentList = excelReader.readExcelContent("c:\\test.xls");  
+            System.out.println("获得Excel表格的内容:"+contentList.size());  
+            //获得Map的key的个数  
+            int cloumtCount=contentList.get(0).keySet().size();  
+            System.out.println(contentList.size());  
+            String sql="insert into test_content values(?,?,?,?)";  
+            PreparedStatement pstmt=conn.prepareStatement(sql);  
+            for (int i = 1; i < contentList.size(); i++) {  
+                for (int j = 1; j <= cloumtCount; j++) {  
+                    pstmt.setObject(j, contentList.get(i).get(j-1));  
+                }  
+                pstmt.addBatch();  
+            }  
+            pstmt.executeBatch();  
+            conn.commit();  
+            pstmt.close();  
+            conn.close();  
+        } catch (Exception e) {  
+            e.printStackTrace();  
+        }  
+    }  
+}  
+
+-----------------------------------------------------------------
+for (int numSheet = 0; numSheet < workBook.getNumberOfSheets(); numSheet++) {  
+                Sheet sheet = workBook.getSheetAt(numSheet);  
+                if (sheet == null) {  
+                    continue;  
+                }  
+                // 循环行Row  
+                for (int rowNum = 1; rowNum <= sheet.getLastRowNum(); rowNum++) {  
+                    Row row = sheet.getRow(rowNum);  
+                    if (row == null) {  
+                        continue;  
+                    }  
+                      
+                    // 循环列Cell  
+                    ArrayList<String> arrCell =new ArrayList<String>();  
+                    for (int cellNum = 0; cellNum <= row.getLastCellNum(); cellNum++) {  
+                        Cell cell = row.getCell(cellNum);  
+                        if (cell == null) {  
+                            continue;  
+                        }  
+                        publicExcel(cell); //publicExcel是下文中execl数据格式的转换，返回值即每个单元格的值                        }  
+                }  
+            }  
+
+ 
+一个完整的事例类
+ 
+[java] view plain copy
+public class ExeclOperate {  
+      
+    public static void main(String[] args) throws Exception {  
+        ExeclOperate e=new ExeclOperate();  
+        e.getExcel();  
+        System.out.println("导入完成！");  
+    }  
+    /** 
+     * 用于连接oracle数据库的方法 
+     * 只需修改中的参数getConnection("url","用户名","密码"); 
+     */  
+    public Connection conn(){  
+        try {  
+        //第一步：加载JDBC驱动  
+        Class.forName("oracle.jdbc.driver.OracleDriver");  
+        //第二步：创建数据库连接  
+        Connection con =DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.156:1521:tianjiao", "E5AVPS", "E5AVPS");  
+        return con;  
+        }catch(ClassNotFoundException cnf){  
+          System.out.println("driver not find:"+cnf);  
+          return null;  
+        }catch(SQLException sqle){  
+          System.out.println("can't connection db:"+sqle);  
+          return null;  
+        }  
+          catch (Exception e) {  
+        System.out.println("Failed to load JDBC/ODBC driver.");  
+        return null;  
+        }  
+    }  
+    /** 
+     * “95509”咨询清单  的读取 
+     * @throws Exception 
+     */  
+    public void getExcel() throws Exception {  
+        // 创建对Excel工作簿文件的引用       
+        HSSFWorkbook workbook = new HSSFWorkbook(new FileInputStream("D:\\1.xls"));       
+         // 创建对工作表的引用。  
+         // 在Excel文档中，第一张工作表的缺省索引是0，  
+         // 读取左上端单元  
+         for (int i = 0; i < workbook.getNumberOfSheets(); i++) {// 循环sheet  
+                 if(workbook.getSheetAt(i).getPhysicalNumberOfRows()>0){  
+                     HSSFSheet childSheet = workbook.getSheetAt(i);  
+                        for(int rowi=1;rowi<400000;rowi++){  
+                            //System.out.println(childSheet.getRow(rowi).getCell(1).equals(""));  
+                            if(childSheet.getRow(rowi).getCell(0).equals("") || childSheet.getRow(rowi).getCell(0)==null) break;  
+                            String cell1=this.publicExcel(childSheet.getRow(rowi).getCell(0));  
+                            if(cell1==null) break;  
+                            //对于double类型的数据装换为string类型进行字符串截取 只取整数。  
+                            cell1=cell1.substring(0, cell1.length()-2);  
+                            String cell2=this.publicExcel(childSheet.getRow(rowi).getCell(1));  
+                            String cell3=this.publicExcel(childSheet.getRow(rowi).getCell(2));  
+                            String cell4=this.publicExcel(childSheet.getRow(rowi).getCell(3));  
+                            String cell5=this.publicExcel(childSheet.getRow(rowi).getCell(4));  
+                            String cell6=this.publicExcel(childSheet.getRow(rowi).getCell(5));  
+                            cell6=cell6.substring(0, cell6.length()-2);  
+                            //拼装插入数据库的sql     
+                            String insert="insert into w_95509 values('"+cell1+"','"+cell2+"','"+cell3+"','"+cell4+"','"+cell5+"','"+cell6+"')";  
+                            System.out.println("SQL:"+insert);  
+                            insert(insert);  
+                              
+                        }     
+                }  
+            }  
+    }  
+  
+        /** 
+         * execl数据格式的转换 
+         * @param cell 
+         * @return 
+         */  
+        public String publicExcel( HSSFCell cell){  
+            String value = null;          
+                  switch (cell.getCellType()) {  
+                  case HSSFCell.CELL_TYPE_NUMERIC:  
+                   value = "" + cell.getNumericCellValue();  
+                   break;  
+                  case HSSFCell.CELL_TYPE_STRING:  
+                   value = cell.getStringCellValue();  
+                   break;  
+                  case HSSFCell.CELL_TYPE_BLANK:  
+                   ;  
+                   break;  
+                  default:   
+                }  
+            return value;  
+        }  
+          
+          
+        /** 
+         * 插入数据 只需要传入插入sql即可 
+         * 插入sql的样例:insert into t_department values('D004','金融部'); 
+         * @param insert 插入语句 
+         * @return 
+         * @throws SQLException  
+         */  
+        public int insert(String insert) throws SQLException{  
+            Connection conn = this.conn();  
+            int re = 0;  
+            try{  
+                conn.setAutoCommit(false);//事物开始                  
+                Statement sm = conn.createStatement();  
+                re = sm.executeUpdate(insert);  
+                if(re < 0){               //插入失败  
+                    conn.rollback();      //回滚  
+                    sm.close();  
+                    conn.close();    
+                    return re;  
+                }  
+                conn.commit();            //插入正常  
+                sm.close();  
+                conn.close();    
+                return re;  
+            }  
+            catch(Exception e){  
+                e.printStackTrace();  
+            }  
+            conn.close();    
+            return 0;  
+              
+        }   
+  
+    } 

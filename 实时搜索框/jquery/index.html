@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>select.suggest-A5源码</title>
+
+<!-- Bootstrap -->
+<script type="text/javascript" src="js/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="js/jquery.select.js"></script>
+
+</head>
+<body>
+
+<input id="testInput" type="text" />
+<input id="testInput2" type="text" style="width:450px;"/>	
+
+<script type="text/javascript">
+ var datas =[{"id":"2","text":"中国石油天然气股份有限公司"}, 
+{"id":"4","text":"中国建筑股份有限公司"},
+{"id":"3","text":"中国移动有限公司"},
+{"id":"5","text":"中国工商银行股份有限公司"},
+{"id":"7","text":"中国铁建股份有限公司"},
+{"id":"6","text":"中国中铁股份有限公司"},
+{"id":"8","text":"上海汽车集团股份有限公司"},
+{"id":"9","text":"中国建设银行股份有限公司"},
+{"id":"11","text":"中国农业银行股份有限公司"},
+{"id":"10","text":"	中国人寿保险股份有限公司"},
+{"id":"12","text":"中国银行股份有限公司"},
+{"id":"14","text":"中国平安保险(集团)股份有限公司"},
+{"id":"13","text":"中国交通建设股份有限公司"},
+{"id":"15","text":"	中国电信股份有限公司"},
+{"id":"16","text":"中国人民保险集团股份有限公司"},
+{"id":"18","text":"	中国联合网络通信股份有限公司"},
+{"id":"19","text":"	中国神华能源股份有限公司"},
+{"id":"20","text":"	中国海洋石油有限公司"},
+{"id":"16	","text":"中国冶金科工股份有限公司"},
+{"id":"21","text":"	联想集团有限公司"}];
+
+  	$.selectSuggest('testInput',datas);
+
+ var datass =[{"id":"2","text":"中国司"}, 
+{"id":"4","text":"中国司"},
+{"id":"3","text":"中国司"},
+{"id":"5","text":"中国行股份有限公司"},
+{"id":"7","text":"中国铁建股份有限公司"},
+{"id":"6","text":"scsdcs"},
+{"id":"8","text":"上海汽车集团股份有限公司"},
+{"id":"9","text":"中国建设银行股份有限公司"},
+{"id":"11","text":"中国农业银行股份有限公司"},
+{"id":"10","text":"	中国人寿保险股份有限公司"},
+{"id":"12","text":"中国银行股份有限公司"},
+{"id":"14","text":"中国平安保险(集团)股份有限公司"},
+{"id":"13","text":"中国交通建设股份有限公司"},
+{"id":"15","text":"	中国电信股份有限公司"},
+{"id":"16","text":"中国人民保险集团股份有限公司"},
+{"id":"18","text":"	中国联合网络通信股份有限公司"},
+{"id":"19","text":"	中国神华能源股份有限公司"},
+{"id":"20","text":"	中国海洋石油有限公司"},
+{"id":"16	","text":"中国冶金科工股份有限公司"},
+{"id":"21","text":"	联想集团有限公司"}];
+
+$.selectSuggest('testInput2',datass);
+</script>
+	
+</body>	
+</html>

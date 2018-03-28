@@ -14,7 +14,7 @@ onDR: function(){
                 fileEle.setAttribute("id","file");
                 fileEle.style.display = "none";
                 idfile.appendChild(fileEle);
-                if (confirm("是否要覆盖原数据？")){
+                if (confirm("是否要覆盖原数据？·")){
                     // alert("是"+upfile.value);
                     curSeg.onJXExcel(upfile.value,[]);//解析Excel中的数据
                 }else{
